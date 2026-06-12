@@ -1,0 +1,39 @@
+[
+  {
+    "id": "script3",
+    "fecha": "Junio 2026",
+    "extension": "PY",
+    "title": "Aplicación de análisis cienciométrico no basado en citas SOCHIFIT",
+    "author": "Merchan Farfán, C.",
+    "year": "2025",
+    "caption": "Este data set, es el resultado de la aplicación de un análisis cienciométrico no basado en citas, en el marco de una investigación realizada con Nicolas Quiroga (Phd en agronomía), este contiene una serie de recursos y procesos que se utiliaron desde clasificar automaticamente con  IA, hasta la aplicación de un análisis de redes para identificar el comportamiento y naturaliza del campo científico de la fitopatología a traves de la SOCHIFIT. En el archivo están todos los recursos para asegurar su reproducibilidad, desde los datos, el código y la documentación de cada uno de los procesos realizados.",
+    "citation": "Merchan Farfán, C. (2026). Aplicación de análisis cienciométrico no basado en citas SOCHIFIT (2.0) [Data set]. Unidad de Bibliotecas UOH. https://doi.org/10.5281/zenodo.20671883",
+    "download": "https://doi.org/10.5281/zenodo.20671883"
+  },
+
+  {
+    "id": "script2",
+    "fecha": "Junio 2026",
+    "extension": "PY",
+    "title": "Comparar, cruzar y homologar",
+    "author": "Merchan Farfán, C.",
+    "year": "2025",
+    "caption": "Este script es de mis favritos, es tan simple cómo tener dos archivos y comparar la columna \"título\" de cada uno. ¿El resultado? Un nuevo documento con los datos \"enfrentados\" y que agrega una columna que dice si encontró o no duplicados y en que porcentaje.",
+    "citation": "Merchan Farfán, C. (2026). Comparar, cruzar y homologar (1.0). Unidad de Bibliotecas UOH. https://doi.org/10.5281/zenodo.20671403",
+    "download": "https://doi.org/10.5281/zenodo.20671403"
+  },
+  
+  {
+    "id": "script1",
+    "fecha": "Junio 2026",
+    "extension": "R",
+    "title": "Convertor xml a csv",
+    "author": "Merchan Farfán, C.",
+    "year": "2025",
+    "caption": "Descripción breve del script. Qué hace, para qué sirve y en qué contexto lo usaste.",
+    "citation": "Merchan Farfán, C. (2026). Convertor xml a csv. Unidad de Bibliotecas UOH. https://doi.org/10.5281/zenodo.20671752",
+    "download": "https://doi.org/10.5281/zenodo.20671752"
+  }
+
+]
+

@@ -1,5 +1,5 @@
 /.quarto/
-/docs/
+#/docs/
 **/*.quarto_ipynb
 **/*.knit.md
 .DS_Store
