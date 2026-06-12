@@ -1,0 +1,115 @@
+---
+title: ""
+page-layout: full
+---
+
+```{r, echo=FALSE, results='asis', message=FALSE, warning=FALSE}
+library(jsonlite)
+
+candidates <- c(
+  file.path(getwd(), "data", "recursos.json"),
+  "data/recursos.json"
+)
+
+ci <- tryCatch(knitr::current_input(), error = function(e) NULL)
+if (!is.null(ci) && nchar(ci) > 0) {
+  candidates <- c(file.path(dirname(ci), "data", "recursos.json"), candidates)
+}
+
+recursos_path <- Find(file.exists, candidates)
+
+if (is.null(recursos_path)) {
+  stop(paste("No se encontró recursos.json. Directorio actual:", getwd()))
+}
+
+recursos      <- read_json(recursos_path)
+recursos_json <- toJSON(recursos, auto_unbox = TRUE)
+cat(sprintf('<script>const RECURSOS_DATA = %s;</script>', recursos_json))
+```
+
+```{=html}
+<div class="lecturas-layout">
+
+  <!-- COLUMNA IZQUIERDA -->
+  <div class="glass-intro">
+    <h2 class="intro-title">Recursos y Enlaces</h2>
+    <p class="intro-text">
+      Una selección de recursos que uso o recomiendo: videos, libros, bases de datos,
+      podcasts, herramientas y más.
+    </p>
+    <p class="intro-text">
+      Cada entrada incluye una descripción breve y un enlace directo para acceder al recurso.
+    </p>
+  </div>
+
+  <!-- COLUMNA DERECHA -->
+  <div class="lecturas-cards" id="recursos-cards"></div>
+
+</div>
+
+<script>
+/* Mapa de formato → icono Font Awesome */
+var iconMap = {
+  /* Redes sociales */
+  'instagram':  'fab fa-instagram',
+  'youtube':    'fab fa-youtube',
+  'linkedin':   'fab fa-linkedin',
+  'twitter':    'fab fa-x-twitter',
+  'github':     'fab fa-github',
+  'tiktok':     'fab fa-tiktok',
+  'spotify':    'fab fa-spotify',
+  /* Tipos genéricos */
+  'periodico':  'fas fa-newspaper',
+  'audio':      'fas fa-headphones',
+  'podcast':    'fas fa-podcast',
+  'libro':      'fas fa-book',
+  'base-datos': 'fas fa-database',
+  'script':     'fas fa-code',
+  'video':      'fas fa-video',
+  'articulo':   'fas fa-file-alt',
+  'web':        'fas fa-globe',
+  'herramienta':'fas fa-wrench',
+  'datos':      'fas fa-table',
+  'repositorio':'fas fa-folder-open'
+};
+
+/* Mapa de formato → color de fondo del badge */
+var colorMap = {
+  'instagram':  '#c13584',
+  'youtube':    '#ff0000',
+  'linkedin':   '#0077b5',
+  'twitter':    '#1a1a2e',
+  'github':     '#24292e',
+  'tiktok':     '#010101',
+  'spotify':    '#1db954'
+  /* Los tipos genéricos usan el color por defecto (#3b3458) */
+};
+
+function resourceCardHtml(r) {
+  var icon  = iconMap[r.formato]  || 'fas fa-link';
+  var color = colorMap[r.formato] || '#3b3458';
+  return '<div class="book-card">' +
+    '<div class="script-ext-wrap">' +
+      '<div class="resource-badge" style="background:' + color + '">' +
+        '<i class="' + icon + '"></i>' +
+      '</div>' +
+    '</div>' +
+    '<div class="book-meta">' +
+        '<span class="entry-date">Añadido: ' + r.fecha + '</span>' +
+      '<div class="book-title">' + r.title + '</div>' +
+      '<div class="script-byline">' +
+        '<span class="book-author">' + r.author + '</span>' +
+        '<span class="script-sep">·</span>' +
+        '<span class="book-year">' + r.year + '</span>' +
+      '</div>' +
+      '<p class="book-caption">' + r.caption + '</p>' +
+      '<div class="book-cite"><span class="cite-label">Cita este recurso:</span> ' + r.citation + '</div>' +
+      '<a href="' + r.url + '" class="download-btn" target="_blank">Acceder al recurso →</a>' +
+    '</div>' +
+  '</div>';
+}
+
+document.getElementById('recursos-cards').innerHTML =
+  RECURSOS_DATA.map(resourceCardHtml).join('');
+</script>
+```

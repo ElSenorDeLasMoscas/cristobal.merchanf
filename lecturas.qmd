@@ -1,0 +1,132 @@
+---
+title: ""
+page-layout: full
+---
+
+```{r, echo=FALSE, results='asis', message=FALSE, warning=FALSE}
+library(jsonlite)
+
+# Intentar rutas en orden hasta encontrar el archivo
+candidates <- c(
+  file.path(getwd(), "data", "books.json"),
+  "data/books.json"
+)
+
+ci <- tryCatch(knitr::current_input(), error = function(e) NULL)
+if (!is.null(ci) && nchar(ci) > 0) {
+  candidates <- c(file.path(dirname(ci), "data", "books.json"), candidates)
+}
+
+books_path <- Find(file.exists, candidates)
+
+if (is.null(books_path)) {
+  stop(paste(
+    "No se encontró books.json. Rutas buscadas:\n",
+    paste(candidates, collapse = "\n "),
+    "\nDirectorio de trabajo actual:", getwd()
+  ))
+}
+
+books      <- read_json(books_path)
+books_json <- toJSON(books, auto_unbox = TRUE)
+cat(sprintf('<script>const BOOKS_DATA = %s;</script>', books_json))
+```
+
+```{=html}
+<div class="lecturas-layout">
+
+  <!-- COLUMNA IZQUIERDA -->
+  <div class="glass-intro">
+    <h2 class="intro-title">Lecturas</h2>
+    <p class="intro-text">
+      En esta sección encontrarás mis lecturas de artículos, notas, libros y otros
+      tipos de textos que me parece relevante compartir.
+    </p>
+    <p class="intro-text">
+      Cada entrada incluye una breve reseña, mi valoración personal y la referencia
+      para que puedas citarlos o leerlos. Haz clic en "Leer reseña completa →".
+    </p>
+    <p class="intro-text">
+      Las lecturas van desde literatura, metodología y bibliotecología hasta sociología
+      crítica, ciencia abierta y teoría social contemporánea.
+    </p>
+  </div>
+
+  <!-- COLUMNA DERECHA -->
+  <div class="lecturas-cards" id="lecturas-cards"></div>
+
+</div>
+
+<div id="modal-container"></div>
+
+<script>
+function stars(n) {
+  return '★'.repeat(n) + '☆'.repeat(5 - n);
+}
+
+function cardHtml(b) {
+  return '<div class="book-card">' +
+    '<div class="book-cover-side">' +
+      '<img src="' + b.cover + '" alt="Portada" class="book-img">' +
+      '<div class="book-stars">' + stars(b.stars) + '</div>' +
+    '</div>' +
+    '<div class="book-meta">' +
+      '<span class="entry-date">Añadido: ' + b.fecha + '</span>' +
+      '<span class="book-author">' + b.author + '</span>' + 
+      '<div class="book-title">' + b.title + '</div>' +
+      '<div class="book-year">' + b.year + '</div>' +
+      '<p class="book-caption">' + b.caption + '</p>' +
+      '<div class="book-cite"><span class="cite-label">Cita este texto:</span> ' + b.citation + '</div>' +
+      '<span class="read-hint" onclick="openModal(\'' + b.id + '\')">Ver reseña completa →</span>' +
+    '</div>' +
+  '</div>';
+}
+
+function modalHtml(b) {
+  var paragraphs = b.review.split('\n\n').map(function(p) {
+    return '<p>' + p + '</p>';
+  }).join('');
+  return '<div id="modal-' + b.id + '" class="modal-overlay" onclick="closeModal(event,\'' + b.id + '\')">' +
+    '<div class="modal-box">' +
+      '<button class="modal-close" onclick="closeModal(null,\'' + b.id + '\')">&#x2715;</button>' +
+      '<div class="modal-header">' +
+        '<img src="' + b.cover + '" alt="" class="modal-cover">' +
+        '<div class="modal-biblio">' +
+          '<div class="modal-title">' + b.title + '</div>' +
+          '<div class="modal-author">' + b.fullName + '</div>' +
+          '<div class="modal-year">' + b.year + '</div>' +
+          '<div class="modal-publisher">' + b.publisher + '</div>' +
+          '<div class="modal-stars">' + stars(b.stars) + '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="modal-review">' + paragraphs + '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+document.getElementById('lecturas-cards').innerHTML =
+  BOOKS_DATA.map(cardHtml).join('');
+document.getElementById('modal-container').innerHTML =
+  BOOKS_DATA.map(modalHtml).join('');
+
+function openModal(id) {
+  document.getElementById('modal-' + id).style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(event, id) {
+  var overlay = document.getElementById('modal-' + id);
+  if (!event || event.target === overlay) {
+    overlay.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay').forEach(function(m) {
+      m.style.display = 'none';
+    });
+    document.body.style.overflow = '';
+  }
+});
+</script>
+```

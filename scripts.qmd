@@ -1,0 +1,79 @@
+---
+title: ""
+page-layout: full
+---
+
+```{r, echo=FALSE, results='asis', message=FALSE, warning=FALSE}
+library(jsonlite)
+
+candidates <- c(
+  file.path(getwd(), "data", "scripts.json"),
+  "data/scripts.json"
+)
+
+ci <- tryCatch(knitr::current_input(), error = function(e) NULL)
+if (!is.null(ci) && nchar(ci) > 0) {
+  candidates <- c(file.path(dirname(ci), "data", "scripts.json"), candidates)
+}
+
+scripts_path <- Find(file.exists, candidates)
+
+if (is.null(scripts_path)) {
+  stop(paste("No se encontró scripts.json. Directorio actual:", getwd()))
+}
+
+scripts      <- read_json(scripts_path)
+scripts_json <- toJSON(scripts, auto_unbox = TRUE)
+cat(sprintf('<script>const SCRIPTS_DATA = %s;</script>', scripts_json))
+```
+
+```{=html}
+<div class="lecturas-layout">
+
+  <!-- COLUMNA IZQUIERDA -->
+  <div class="glass-intro">
+    <h2 class="intro-title">Scripts y Proyectos</h2>
+    <p class="intro-text">
+      En esta sección encontrarás los scripts que he desarrollado o utilizado
+      en mis investigaciones y proyectos académicos.
+    </p>
+    <p class="intro-text">
+      Cada entrada incluye una descripción del script, su referencia y un
+      enlace para descargarlo directamente.
+    </p>
+    <p class="intro-text">
+      Los scripts están principalmente en R y Python, orientados al análisis
+      de datos, bibliometría y visualización, tambien hay distintos proyectos que he realizado que no son códigos.
+    </p>
+  </div>
+
+  <!-- COLUMNA DERECHA -->
+  <div class="lecturas-cards" id="scripts-cards"></div>
+
+</div>
+
+<script>
+function scriptCardHtml(s) {
+  return '<div class="book-card script-card">' +
+    '<div class="script-ext-wrap">' +
+      '<div class="script-ext">' + s.extension + '</div>' +
+    '</div>' +
+    '<div class="book-meta">' +
+            '<span class="entry-date">Añadido: ' + s.fecha + '</span>' +
+      '<div class="book-title">' + s.title + '</div>' +
+      '<div class="script-byline">' +
+        '<span class="book-author">' + s.author + '</span>' +
+        '<span class="script-sep">·</span>' +
+        '<span class="book-year">' + s.year + '</span>' +
+      '</div>' +
+      '<p class="book-caption">' + s.caption + '</p>' +
+      '<div class="book-cite"><span class="cite-label">Cita este texto:</span> ' + s.citation + '</div>' +
+      '<a href="' + s.download + '" class="download-btn" download>Descargar el script ↓</a>' +
+    '</div>' +
+  '</div>';
+}
+
+document.getElementById('scripts-cards').innerHTML =
+  SCRIPTS_DATA.map(scriptCardHtml).join('');
+</script>
+```

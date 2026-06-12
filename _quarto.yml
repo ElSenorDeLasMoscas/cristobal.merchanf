@@ -1,0 +1,72 @@
+
+project:
+  type: website
+  output-dir: docs
+  resources:
+    - data/
+
+
+website:
+  title: "cristobal.merchanf"
+  favicon: data/img/favicon.png
+  navbar:
+    background: light
+    foreground: dark
+    left:
+      - text: "Inicio"
+        href: index.qmd
+      - text: "Lecturas"
+        href: lecturas.qmd
+      - text: "Ensayos"
+        href: ensayos.qmd
+      - text: "Scripts"
+        href: scripts.qmd
+      - text: "Recursos y Enlaces"
+        href: recursos.qmd
+
+  page-footer:
+    left: |
+      © 2026 Cristóbal Merchan Farfán, Chile.<br>
+      <i class="fab fa-creative-commons"></i>
+      <i class="fab fa-creative-commons-by"></i> 
+      <i class="fab fa-creative-commons-nc"></i>
+      [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/){target="_blank" rel="noopener noreferrer"}
+    right: |
+      Desarrollado con [Quarto](https://quarto.org/){target="_blank" rel="noopener noreferrer"}<br>
+
+format:
+  html:
+    theme:
+      - theme.scss
+    toc: false
+    include-in-header:
+      text: |
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-3TC2GD7M1V"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-3TC2GD7M1V');
+        </script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <!-- Fuentes del tema: serif display (Didone) + monoespaciada. Equivalentes libres. -->
+        <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    include-after-body:
+      text: |
+        <script>
+          (function() {
+            const opciones = ['a', 'x', 'o', '_'];
+            let indice = 0;
+            const tituloElement = document.querySelector('.navbar-brand');
+            if (!tituloElement) return;
+            const textoBase = 'Bienvenid';
+            tituloElement.textContent = textoBase + '_';
+            setInterval(() => {
+              tituloElement.textContent = textoBase + opciones[indice % opciones.length];
+              indice++;
+            }, 800);
+          })();
+        </script>

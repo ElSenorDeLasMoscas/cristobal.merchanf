@@ -1,0 +1,6 @@
+/.quarto/
+/docs/
+**/*.quarto_ipynb
+**/*.knit.md
+.DS_Store
+Thumbs.db

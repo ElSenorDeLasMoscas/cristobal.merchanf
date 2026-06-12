@@ -1,0 +1,74 @@
+---
+title: ""
+page-layout: full
+---
+
+<div class="hero-wrapper">
+<div class="hero-glass hero-split">
+
+<div class="hero-col-left">
+
+<h2 class="hero-name">Cristóbal Merchan Farfán</h2>
+<p class="hero-role">Bibliotecólgo, Lic en cs. de la información y documentación</p>
+<div class="hero-divider"></div>
+<p class="hero-bio">
+Bienvenid_ a mi espacio digital. Aquí encontrarás reflexiones sobre ciencias sociales,
+metodología y ciencia abierta; mis lecturas recomendadas, ensayos y los scripts con los que trabajo.
+</p>
+
+<div class="social-row">
+  <a href="https://orcid.org/0000-0003-0640-0796" class="social-pill" target="_blank">
+    <i class="fab fa-orcid"></i> ORCID
+  </a>
+  <a href="https://www.linkedin.com/in/crist%C3%B3bal-merchan-farf%C3%A1n-a9b385236/" class="social-pill" target="_blank">
+    <i class="fab fa-linkedin"></i> LinkedIn
+  </a>
+  <a href="https://www.instagram.com/elsenordelasmoscas_/" class="social-pill" target="_blank">
+    <i class="fab fa-instagram"></i> Instagram
+  </a>
+  <a href="https://github.com/ElSenorDeLasMoscas/" class="social-pill" target="_blank">
+    <i class="fab fa-github"></i> GitHub
+  </a>
+</div>
+
+</div><!-- /hero-col-left -->
+
+<div class="hero-col-right">
+
+<p class="section-label">Explorar</p>
+
+<div class="nav-cards-grid">
+  <a href="lecturas.qmd" class="section-card">
+    <span class="s-icon">📚</span>
+    <span class="s-text">
+      <span class="s-title">Lecturas</span>
+      <span class="s-desc">Recomendaciones y reseñar de mis ultimas lecturas.</span>
+    </span>
+  </a>
+  <a href="ensayos.qmd" class="section-card">
+    <span class="s-icon">✍️</span>
+    <span class="s-text">
+      <span class="s-title">Ensayos</span>
+      <span class="s-desc">Trabajos análisis sobre temas académicos y sociales.</span>
+    </span>
+  </a>
+  <a href="scripts.qmd" class="section-card">
+    <span class="s-icon">💻</span>
+    <span class="s-text">
+      <span class="s-title">Scripts y Proyectos</span>
+      <span class="s-desc">Códigos en R y Python para análisis de datos, bibliometría, visualización y otros proyectos.</span>
+    </span>
+  </a>
+    <a href="recursos.qmd" class="section-card">
+    <span class="s-icon">🗃️</span>
+    <span class="s-text">
+      <span class="s-title">Recursos y enlaces</span>
+      <span class="s-desc">Distintos recursos que son de interés.</span>
+    </span>
+  </a>
+</div>
+
+</div><!-- /hero-col-right -->
+
+</div>
+</div>

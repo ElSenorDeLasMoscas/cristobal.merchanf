@@ -1,0 +1,825 @@
+/*-----------------------------------------------------------------------------
+  THEME: "Grabado / Terminal" — editorial brutalista de dos colores
+  -----------------------------------------------------------------------------
+  TODO el aspecto del sitio se controla desde la CAPA DE TOKENS de abajo.
+  Cambia un token y el cambio se propaga de forma coherente por todo el sitio.
+  Las reglas (scss:rules) SOLO consumen tokens; no fijes colores ni tipografías
+  "a mano" dentro de las reglas.
+
+  Documentación completa de cada token: README_PERSONALIZACION.md
+-----------------------------------------------------------------------------*/
+
+/*-- scss:defaults --*/
+
+/* =========================================================================
+   1. TOKENS ATÓMICOS  (los únicos valores "de marca" del sitio)
+   ========================================================================= */
+
+/* --- 1.1 Color: paleta de DOS colores ---------------------------------- */
+$token-blue:        #6d1de6 !default;   // azul ultramar / Klein (color primario)
+$token-paper:       #efefef !default;   // blanco cálido / crema (figura sobre azul)
+$token-white:       #ffffff !default;   // blanco puro (acentos máximos)
+
+/* Roles de color derivados de la paleta (no inventes colores nuevos: derívalos) */
+$token-bg:          $token-blue !default;   // fondo global de la página
+$token-fg:          $token-paper !default;  // texto/figura sobre el fondo
+$token-accent:      $token-white !default;  // acento de máximo contraste
+$token-line:        rgba($token-paper, 0.28) !default; // color de las hairlines
+
+/* Color del resaltado al SELECCIONAR texto sobre fondos claros (código, paneles crema).
+   Es el primario translúcido para que se vea bien sin tapar el texto. */
+$token-selection-light: rgba($token-blue, 0.28) !default;
+
+/* --- 1.2 Tipografía: doble registro (serif display + mono) -------------- */
+$token-font-display: "Bodoni Moda", "Playfair Display", "Didot", Georgia, serif !default;
+$token-font-mono:    "Space Mono", "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace !default;
+
+/* Optical size del serif display (eje "opsz" de Bodoni Moda).
+   Valor BAJO = trazos finos más gruesos y legibles; valor ALTO = más contraste tipo
+   Didone (más elegante pero los pelos de la "A", "L", etc. se adelgazan). Rango útil 6–96. */
+$token-display-opsz: 16 !default;
+
+/* Escala tipográfica */
+$token-fs-wordmark:  clamp(2.4rem, 5.5vw, 4.4rem) !default; // wordmark / titular hero
+$token-fs-display:   clamp(1.9rem, 4.5vw, 3rem) !default; // títulos de sección serif
+$token-fs-title:     1.15rem !default;   // títulos de tarjeta (serif)
+$token-fs-body:      0.94rem !default;   // cuerpo
+$token-fs-label:     0.72rem !default;   // etiquetas / micro-texto mono
+$token-fs-nav:       0.82rem !default;   // navegación
+
+/* Tracking (espaciado entre letras) e interlineado */
+$token-tracking-mono:  0.16em !default;  // mono general
+$token-tracking-label: 0.28em !default;  // etiquetas en mayúsculas
+$token-leading-tight:  1.04 !default;    // titulares serif (ajustado)
+$token-leading-body:   1.7 !default;     // cuerpo
+
+/* --- 1.3 Espaciado ----------------------------------------------------- */
+$token-space:        1.5rem !default;    // unidad base de espaciado
+$token-radius:       0 !default;         // 0 = esquinas rectas (brutalista). Sube p/ redondear.
+
+/* --- 1.4 Hairlines (líneas finas de la retícula) ----------------------- */
+$token-hairline:     1px !default;       // grosor de las líneas finas
+
+/* --- 1.5 Tratamiento de imágenes (duotono azul/crema) ------------------ */
+/* Filtro CSS que convierte cualquier imagen a un duotono azul tipo grabado.
+   Súbelo/bájalo para más o menos intensidad. Pon "none" para desactivarlo. */
+$token-duotone: grayscale(1) brightness(1.08) contrast(0.98) sepia(1)
+                hue-rotate(198deg) saturate(2.6) !default;
+
+/* --- 1.6 Numeración decorativa de bloques (#01, #02 …) ------------------ */
+/* "" (vacío) la oculta;  "#0" la activa con prefijo.  Es decorativa: NO toca el contenido. */
+$token-counter-prefix: "#0" !default;
+
+
+/* =========================================================================
+   2. MAPEADO A BOOTSTRAP / QUARTO
+   (las variables del framework se alimentan SOLO de los tokens de arriba)
+   ========================================================================= */
+
+$primary:               $token-blue;
+$body-bg:               $token-bg;
+$body-color:            $token-fg;
+$link-color:            $token-fg;
+$link-hover-color:      $token-accent;
+
+$headings-color:        $token-fg;
+$headings-font-family:  $token-font-display;
+$font-family-base:      $token-font-mono;
+$font-family-monospace: $token-font-mono;
+
+$body-font-size:        $token-fs-body;
+$body-line-height:      $token-leading-body;
+$border-radius:         $token-radius;
+$border-radius-sm:      $token-radius;
+$border-radius-lg:      $token-radius;
+
+/* Navbar (Bootstrap/Quarto) */
+$navbar-bg:             $token-bg;
+$navbar-fg:             $token-fg;
+
+
+/*-- scss:rules --*/
+
+/* =========================================================================
+   3. REGLAS  — solo consumen tokens; aquí no hay valores de marca sueltos
+   ========================================================================= */
+
+/* --- 3.0 Mixins de "panel" (secciones que invierten figura/fondo) ------- */
+@mixin panel-paper {            /* crema con texto azul */
+  background: $token-paper;
+  color: $token-blue;
+  border: $token-hairline solid transparent;
+}
+@mixin panel-ink {              /* azul con texto crema + hairline */
+  background: $token-bg;
+  color: $token-fg;
+  border: $token-hairline solid $token-line;
+}
+
+/* --- 3.1 Base ---------------------------------------------------------- */
+body {
+  background: $token-bg !important;
+  background-attachment: initial !important;
+  min-height: 100vh;
+  font-family: $token-font-mono;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+/* Selección por defecto: sobre el fondo primario, resaltado crema. */
+::selection { background: $token-paper; color: $token-blue; }
+
+/* Selección sobre fondos CLAROS (cajas de código y paneles crema):
+   primario translúcido, para que se vea bien sin tapar el texto. */
+pre::selection,            pre ::selection,
+code::selection,           code ::selection,
+.sourceCode::selection,    .sourceCode ::selection,
+.glass-intro ::selection,
+.modal-box ::selection,
+.book-card:nth-child(even) ::selection {
+  background: $token-selection-light;
+  color: $token-blue;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $token-font-display;
+  line-height: $token-leading-tight;
+  color: $token-fg;
+}
+
+/* Legibilidad del serif display: fija el optical-size (token) para engrosar los
+   trazos finos en los tamaños grandes, donde Bodoni Moda se vuelve casi ilegible. */
+h1, h2, h3, h4, h5, h6,
+.hero-name, .navbar-brand,
+.s-title, .book-title, .intro-title, .modal-title,
+.quarto-title, .quarto-title-block .title {
+  font-optical-sizing: auto;
+  font-variation-settings: "opsz" #{$token-display-opsz};
+}
+
+a { text-decoration: none; }
+
+/* --- 3.2 Navbar (mono en mayúsculas + hairline inferior) --------------- */
+.navbar {
+  background: $token-bg !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom: $token-hairline solid $token-line !important;
+  box-shadow: none !important;
+}
+
+.navbar .navbar-brand {
+  font-family: $token-font-display;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: $token-fg !important;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  display: inline-block;
+  min-width: 175px;
+  text-align: left;
+}
+
+.navbar .nav-link {
+  color: $token-fg !important;
+  font-family: $token-font-mono;
+  font-weight: 400;
+  font-size: $token-fs-nav;
+  letter-spacing: $token-tracking-label;
+  text-transform: uppercase;
+  transition: opacity 0.2s ease;
+  opacity: 0.85;
+}
+.navbar .nav-link:hover { color: $token-accent !important; opacity: 1; }
+
+/* --- 3.3 Hero (wordmark sobredimensionado sobre azul) ------------------ */
+.hero-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* alto real disponible = viewport − navbar fijo (64px) − footer con contenido (~60px)
+     − márgenes del contenedor (~48px) ≈ 232px. Así el hero llena la pantalla sin
+     desbordarla y el index entra sin scroll en pantallas normales. */
+  min-height: calc(100vh - 15rem);
+}
+
+.hero-glass {                    /* el "vidrio" original se vuelve aire (brutalista) */
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: none;
+  border-radius: $token-radius;
+  box-shadow: none;
+  padding: $token-space $token-space;
+  max-width: 820px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Disposición en DOS COLUMNAS: wordmark/bio/redes (izq) + Explorar/tarjetas (der) */
+.hero-split {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: $token-space * 2.6;
+  align-items: center;
+  max-width: 1180px;
+  text-align: left;
+}
+.hero-col-left  { text-align: left; }
+.hero-col-right { align-self: center; }
+
+/* en split, el contenido de la izquierda se alinea a la izquierda */
+.hero-split .hero-role,
+.hero-split .section-label { text-align: left; }
+.hero-split .social-row {
+  justify-content: start;
+  margin-left: 0;
+  margin-right: 0;
+}
+.hero-split .section-label { margin-top: 0; }
+
+/* colapsa a una sola columna y vuelve a centrar en pantallas medianas/chicas */
+@media (max-width: 991px) {
+  .hero-split { grid-template-columns: 1fr; gap: $token-space * 1.4; text-align: center; }
+  .hero-col-left { text-align: center; }
+  .hero-split .hero-role,
+  .hero-split .section-label { text-align: center; }
+  .hero-split .social-row { justify-content: center; margin-left: auto; margin-right: auto; }
+}
+
+.hero-name {                     /* WORDMARK: serif display, enorme, mayúsculas */
+  font-family: $token-font-display;
+  font-size: $token-fs-wordmark;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: $token-fg;
+  margin: 0 0 0.4rem;
+  line-height: $token-leading-tight;
+  letter-spacing: -0.01em;
+}
+
+.hero-role {
+  font-family: $token-font-mono;
+  font-size: $token-fs-label;
+  font-weight: 400;
+  color: $token-fg;
+  opacity: 0.8;
+  letter-spacing: $token-tracking-label;
+  text-transform: uppercase;
+  margin-bottom: $token-space * 0.7;
+}
+
+.hero-divider {
+  width: 100%;
+  height: $token-hairline;
+  background: $token-line;
+  border-radius: 0;
+  margin: 0 auto ($token-space * 0.7);
+}
+
+.hero-bio {
+  font-family: $token-font-mono;
+  font-size: $token-fs-body;
+  line-height: $token-leading-body;
+  color: $token-fg;
+  opacity: 0.9;
+  margin-bottom: $token-space * 0.75;
+  font-weight: 400;
+}
+
+/* --- 3.4 Redes sociales (botones rectangulares mono con corchetes) ----- */
+.social-row {
+  display: flex;            /* fila horizontal → libera alto vertical (todo en primera plana) */
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+  margin-bottom: $token-space;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* Pandoc envuelve los enlaces de redes en un <p>; lo "disolvemos" (display:contents)
+   para que los .social-pill sean hijos directos del flex y se repartan en la fila. */
+.social-row > p { display: contents; }
+
+.social-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;     /* contenido centrado */
+  flex: 1 1 0;                 /* las 4 reparten el ancho → fila horizontal pareja */
+  min-width: 0;
+  gap: 0.4rem;
+  padding: 0.45rem 0.6rem;
+  background: $token-paper;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: $token-hairline solid $token-blue;
+  border-radius: $token-radius;
+  font-family: $token-font-mono;
+  font-size: $token-fs-label;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: $token-tracking-mono;
+  color: $token-blue !important;
+  text-decoration: none !important;
+  transition: background 0.2s ease, color 0.2s ease;
+  box-shadow: none;
+}
+/* sin corchetes en las redes (fila horizontal compacta); el motivo [ ] se conserva
+   en los botones de "Ver reseña completa" y "Descargar". */
+.social-pill::before,
+.social-pill::after { content: none; }
+
+.social-pill:hover {
+  background: $token-blue;
+  color: $token-paper !important;
+  border-color: $token-paper;
+  transform: none;
+  box-shadow: none;
+  text-decoration: none !important;
+}
+.social-pill i { font-size: 0.95rem; color: inherit; }
+
+/* --- 3.5 Sección "Explorar" (tarjetas de navegación, alternadas) ------- */
+.section-label {
+  font-family: $token-font-mono;
+  font-size: $token-fs-label;
+  font-weight: 700;
+  color: $token-fg;
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: $token-tracking-label;
+  margin-bottom: $token-space;
+  text-align: center;
+}
+
+.nav-cards-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: $token-hairline solid $token-line;   /* retícula con hairlines */
+  counter-reset: navcard;
+}
+
+.section-card {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: none;
+  border-bottom: $token-hairline solid $token-line; /* separador fino */
+  border-radius: 0;
+  padding: 0.95rem 1.1rem;
+  text-decoration: none !important;
+  color: $token-fg !important;
+  transition: background 0.2s ease, color 0.2s ease, padding-left 0.2s ease;
+  text-align: left;
+  position: relative;
+  counter-increment: navcard;
+}
+.section-card:hover {
+  background: $token-paper;
+  color: $token-blue !important;
+  transform: none;
+  box-shadow: none;
+  padding-left: 1.6rem;
+}
+.section-card:hover .s-title,
+.section-card:hover .s-desc { color: $token-blue; }
+
+/* número de bloque decorativo (#01, #02 …) en mono */
+.section-card::before {
+  content: $token-counter-prefix counter(navcard);
+  font-family: $token-font-mono;
+  font-size: $token-fs-label;
+  letter-spacing: $token-tracking-mono;
+  opacity: 0.6;
+  align-self: flex-start;
+}
+
+.section-card .s-icon { font-size: 1.5rem; flex-shrink: 0; filter: grayscale(0.2); }
+.section-card .s-text { display: flex; flex-direction: column; gap: 0.2rem; }
+.section-card .s-title {
+  font-family: $token-font-display;
+  font-size: $token-fs-title;
+  font-weight: 500;
+  color: inherit;
+  display: block;
+}
+.section-card .s-desc {
+  font-family: $token-font-mono;
+  font-size: $token-fs-label;
+  color: inherit;
+  opacity: 0.75;
+  line-height: 1.5;
+  display: block;
+}
+
+/* --- 3.6 Páginas interiores / títulos / footer ------------------------ */
+.quarto-title,
+.quarto-title-block .title {
+  font-family: $token-font-display !important;
+  font-size: $token-fs-display !important;
+  text-transform: uppercase;
+  color: $token-fg !important;
+  letter-spacing: 0.01em;
+}
+
+.page-footer {
+  background: $token-bg !important;
+  backdrop-filter: none;
+  border-top: $token-hairline solid $token-line !important;
+  color: $token-fg !important;
+  opacity: 0.7;
+  font-family: $token-font-mono;
+  font-size: $token-fs-label;
+  text-transform: uppercase;
+  letter-spacing: $token-tracking-mono;
+}
+
+/* --- 3.7 Layout de listados (Lecturas / Scripts / Recursos) ----------- */
+.lecturas-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.9fr;
+  gap: $token-space * 1.6;
+  max-width: 1080px;
+  margin: $token-space * 1.6 auto;
+  padding: 0 $token-space;
+  align-items: start;
+}
+
+.glass-intro {                   /* panel crema (sección invertida) */
+  position: sticky;
+  top: 80px;
+  @include panel-paper;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-radius: $token-radius;
+  box-shadow: none;
+  padding: $token-space;
+}
+
+.intro-title {
+  font-family: $token-font-display !important;
+  font-size: $token-fs-display !important;
+  text-transform: uppercase;
+  color: $token-blue !important;
+  margin-bottom: $token-space * 0.7 !important;
+  line-height: $token-leading-tight !important;
+}
+.intro-text {
+  font-family: $token-font-mono;
+  font-size: $token-fs-label;
+  color: $token-blue;
+  opacity: 0.85;
+  line-height: $token-leading-body;
+  margin-bottom: 0.9rem;
+}
+
+.lecturas-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: $token-hairline solid $token-line;
+  counter-reset: listcard;
+}
+
+/* --- 3.8 Tarjeta (libro / script / recurso) — alternancia figura/fondo - */
+.book-card {
+  display: flex;
+  gap: $token-space * 1.4;
+  @include panel-ink;            /* por defecto: azul con texto crema */
+  border-width: 0 0 $token-hairline 0;   /* solo separador inferior */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-radius: $token-radius;
+  padding: $token-space * 1.3 $token-space;
+  cursor: default;
+  transition: background 0.2s ease, color 0.2s ease;
+  box-shadow: none;
+  position: relative;
+  counter-increment: listcard;
+}
+/* alternancia: las pares se invierten a crema con texto azul */
+.book-card:nth-child(even) {
+  background: $token-paper;
+  color: $token-blue;
+}
+/* hover sutil: una hairline de acento que crece por el costado izquierdo */
+.book-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  background: currentColor;
+  opacity: 0.55;
+  transition: width 0.28s ease;
+}
+.book-card:hover::before { width: 5px; }
+
+/* número de bloque decorativo */
+.book-card::after {
+  content: $token-counter-prefix counter(listcard);
+  position: absolute;
+  top: $token-space * 0.7;
+  right: $token-space * 0.7;
+  font-family: $token-font-mono;
+  font-size: $token-fs-label;
+  letter-spacing: $token-tracking-mono;
+  opacity: 0.4;
+}
+
+.book-cover-side {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  flex-shrink: 0;
+  vertical-align: top;
+}
+
+.book-img {
+  width: 104px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: $token-radius;
+  border: 6px solid $token-paper;          /* paspartú crema (look de lámina enmarcada) */
+  box-shadow: 0 0 0 $token-hairline currentColor,   /* filete fino exterior */
+              6px 6px 0 rgba($token-blue, 0.18);     /* sombra dura brutalista */
+  background: $token-paper;
+  filter: $token-duotone;        /* DUOTONO azul tipo grabado */
+  display: block;
+}
+
+.book-stars {
+  color: inherit;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  display: block;
+  text-align: center;
+}
+
+.book-meta {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1;
+  min-width: 0;
+  vertical-align: top;
+  padding-right: 2.2rem;      /* deja aire para el #NN de la esquina */
+}
+
+.book-author {
+  font-family: $token-font-mono;
+  font-size: $token-fs-label;
+  color: inherit;
+  opacity: 0.7;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: $token-tracking-mono;
+  display: block;
+}
+.book-title {
+  font-family: $token-font-display;
+  font-size: $token-fs-title;
+  font-weight: 600;
+  color: inherit;
+  line-height: 1.25;
+  display: block;
+}
+.book-year {
+  font-family: $token-font-mono;
+  font-size: $token-fs-label;
+  color: inherit;
+  opacity: 0.6;
+  margin-bottom: 0.2rem;
+  display: block;
+}
+.book-caption {
+  font-family: $token-font-mono;
+  font-size: $token-fs-label;
+  color: inherit;
+  opacity: 0.9;
+  line-height: 1.6;
+  margin: 0.2rem 0;
+  display: block;
+}
+.book-cite {
+  font-family: $token-font-mono;
+  font-size: 0.7rem;
+  color: inherit;
+  opacity: 0.7;
+  border-top: $token-hairline solid currentColor;
+  padding-top: 0.5rem;
+  margin-top: 0.4rem;
+  font-style: normal;
+  line-height: 1.5;
+  display: block;
+}
+.cite-label { font-weight: 700; text-transform: uppercase; letter-spacing: $token-tracking-mono; opacity: 0.8; }
+
+/* "Ver reseña completa →" como botón-texto mono con corchetes */
+.read-hint {
+  font-family: $token-font-mono;
+  font-size: $token-fs-label;
+  color: inherit;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: $token-tracking-mono;
+  margin-top: 0.5rem;
+  transition: opacity 0.2s ease;
+  display: inline-block;
+  cursor: pointer !important;
+  opacity: 0.85;
+}
+.read-hint::before { content: "[ "; }
+.read-hint::after  { content: " ]"; }
+.read-hint:hover { opacity: 1; text-decoration: none; }
+.book-card:hover .read-hint { opacity: 1; }
+
+/* --- 3.9 Modal -------------------------------------------------------- */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba($token-blue, 0.85);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: $token-space;
+}
+
+.modal-box {
+  @include panel-paper;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-radius: $token-radius;
+  border: $token-hairline solid $token-blue;
+  box-shadow: 12px 12px 0 rgba($token-blue, 0.25);  /* sombra dura, brutalista */
+  max-width: 680px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: $token-space * 1.6;
+  position: relative;
+  animation: modalIn 0.25s ease;
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: $token-blue;
+  border: $token-hairline solid $token-blue;
+  border-radius: $token-radius;
+  width: 34px;
+  height: 34px;
+  font-size: 1rem;
+  color: $token-paper;
+  cursor: pointer !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+  line-height: 1;
+}
+.modal-close:hover { opacity: 0.8; transform: none; }
+
+.modal-header { display: flex; gap: $token-space; margin-bottom: $token-space; align-items: flex-start; }
+
+.modal-cover {
+  width: 120px;
+  height: 172px;
+  object-fit: cover;
+  border-radius: $token-radius;
+  border: 6px solid $token-paper;
+  box-shadow: 0 0 0 $token-hairline $token-blue,
+              6px 6px 0 rgba($token-blue, 0.18);
+  flex-shrink: 0;
+  background: $token-paper;
+  filter: $token-duotone;        /* DUOTONO */
+}
+
+.modal-biblio { display: flex; flex-direction: column; gap: 0.4rem; padding-top: 0.2rem; }
+.modal-title {
+  font-family: $token-font-display;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  color: $token-blue;
+  line-height: $token-leading-tight;
+}
+.modal-author {
+  font-family: $token-font-mono;
+  font-size: $token-fs-label;
+  color: $token-blue;
+  opacity: 0.7;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: $token-tracking-mono;
+}
+.modal-year, .modal-publisher, .modal-date {
+  font-family: $token-font-mono;
+  font-size: $token-fs-label;
+  color: $token-blue;
+  opacity: 0.6;
+}
+.modal-stars { color: $token-blue; font-size: 0.85rem; letter-spacing: 2px; margin-top: 0.2rem; }
+.modal-review {
+  font-family: $token-font-mono;
+  font-size: $token-fs-body;
+  color: $token-blue;
+  line-height: $token-leading-body;
+  border-top: $token-hairline solid rgba($token-blue, 0.25);
+  padding-top: $token-space;
+}
+.modal-review p { margin-bottom: 0.9rem; }
+
+/* --- 3.10 Scripts ----------------------------------------------------- */
+.script-ext-wrap { flex-shrink: 0; display: flex; align-items: flex-start; }
+.script-ext {
+  width: 92px;
+  height: 92px;
+  background: transparent;
+  border: $token-hairline solid currentColor;
+  border-radius: $token-radius;
+  box-shadow: 5px 5px 0 rgba($token-blue, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: $token-font-mono;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: inherit;
+  letter-spacing: 0;
+}
+.script-byline { display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.1rem; }
+.script-sep { color: inherit; opacity: 0.5; font-size: 0.8rem; }
+
+/* "Descargar ↓" / "Acceder →" como botón-texto mono con corchetes */
+.download-btn {
+  display: inline-block;
+  margin-top: 0.6rem;
+  font-family: $token-font-mono;
+  font-size: $token-fs-label;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: $token-tracking-mono;
+  color: inherit !important;
+  text-decoration: none !important;
+  cursor: pointer;
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+.download-btn::before { content: "[ "; }
+.download-btn::after  { content: " ]"; }
+.download-btn:hover { opacity: 1; text-decoration: none !important; }
+
+/* --- 3.11 Recursos: badge monocromo ----------------------------------- */
+.resource-badge {
+  width: 92px;
+  height: 92px;
+  border-radius: $token-radius;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  /* forzamos paleta de dos colores sobre el color inline que pone el JS */
+  background: $token-blue !important;
+  border: 6px solid $token-paper;
+  box-shadow: 0 0 0 $token-hairline currentColor,
+              5px 5px 0 rgba($token-blue, 0.18);
+  color: $token-paper;
+  flex-shrink: 0;
+}
+.book-card:nth-child(even) .resource-badge { background: $token-blue !important; color: $token-paper; }
+
+.entry-date {
+  font-family: $token-font-mono;
+  font-size: 0.68rem;
+  color: inherit;
+  opacity: 0.55;
+  text-transform: uppercase;
+  letter-spacing: $token-tracking-mono;
+  display: block;
+}
+
+/* --- 3.12 Responsive (sin cambios estructurales) ---------------------- */
+@media (max-width: 768px) {
+  .lecturas-layout { grid-template-columns: 1fr; padding: 0 1rem; }
+  .glass-intro { position: static; }
+  .modal-header { flex-direction: column; align-items: center; text-align: center; }
+}
+@media (max-width: 540px) {
+  .hero-glass { padding: $token-space 1.1rem; }
+  .social-row { flex-direction: column; }
+}
