@@ -50,6 +50,7 @@ $token-fs-nav:       0.82rem !default;   // navegación
 /* Tracking (espaciado entre letras) e interlineado */
 $token-tracking-mono:  0.16em !default;  // mono general
 $token-tracking-label: 0.28em !default;  // etiquetas en mayúsculas
+$token-tracking-mobile: 0.02em !default; // tracking reducido del mono largo en móvil (legibilidad)
 $token-leading-tight:  1.04 !default;    // titulares serif (ajustado)
 $token-leading-body:   1.7 !default;     // cuerpo
 
@@ -813,12 +814,39 @@ a { text-decoration: none; }
   display: block;
 }
 
-/* --- 3.12 Responsive (sin cambios estructurales) ---------------------- */
+/* --- 3.12 Responsive --------------------------------------------------- */
 @media (max-width: 768px) {
   .lecturas-layout { grid-template-columns: 1fr; padding: 0 1rem; }
   .glass-intro { position: static; }
   .modal-header { flex-direction: column; align-items: center; text-align: center; }
 }
+
+/* Teléfono: la ficha pasa a UNA columna (portada arriba, texto a todo el ancho)
+   para que la reseña deje de partirse en 2–3 palabras por línea. El mono largo
+   afloja el tracking y gana tamaño/interlineado para leerse cómodo. */
+@media (max-width: 600px) {
+  .book-card {
+    flex-direction: column;
+    gap: $token-space * 0.9;
+    padding: ($token-space * 1.1) ($token-space * 0.85);
+  }
+  .book-meta { padding-right: 0; }                 /* ya no compite con el #NN lateral */
+  .book-card::after {                              /* número de bloque más recogido */
+    top: $token-space * 0.5;
+    right: $token-space * 0.5;
+  }
+
+  /* texto de cuerpo del mono: más grande, más interlineado y menos tracking */
+  .book-caption,
+  .book-cite,
+  .modal-review {
+    font-size: $token-fs-body;
+    letter-spacing: $token-tracking-mobile;
+    line-height: $token-leading-body;
+  }
+  .book-caption { opacity: 1; }
+}
+
 @media (max-width: 540px) {
   .hero-glass { padding: $token-space 1.1rem; }
   .social-row { flex-direction: column; }
