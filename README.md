@@ -6,7 +6,7 @@ Un sitio web personal/académico construido con **[Quarto](https://quarto.org/)*
 
 - **Inicio** — Introducción, bio, redes sociales (ORCID, LinkedIn, Instagram, GitHub) y tarjetas de navegación.
 - **Lecturas** — Fichas de libros y textos recomendados con reseña personal, estrellas y modal de lectura completa.
-- **Ensayos** — Placeholder para futuras reflexiones académicas.
+- **Ensayos** — Trabajos académicos: ensayos, ponencias, tesis y escritos. Datos desde `data/ensayos.json`.
 - **Scripts** — Herramientas en R y Python para análisis de datos, bibliometría y visualización.
 - **Recursos y Enlaces** — Selección de videos, bases de datos, podcasts, herramientas y más.
 
@@ -54,6 +54,7 @@ Toda la estética se controla por **tokens** en un único archivo: [`theme.scss`
 - **Libros/reseñas:** `data/books.json`
 - **Scripts:** `data/scripts.json`
 - **Recursos:** `data/recursos.json`
+- **Ensayos:** `data/ensayos.json`
 - **Páginas estáticas:** archivos `.qmd` correspondientes
 
 ### Schema de los JSONs
@@ -68,7 +69,7 @@ Cada entrada incluye un campo `tags` con un array de strings temáticos:
 }
 ```
 
-**Taxonomía temática** (extensible — puedes agregar los que necesites):
+**Taxonomía temática**:
 
 | Valores disponibles |
 |---|
@@ -91,7 +92,7 @@ Funcionalidades planificadas (ver `../LOG.md` para estado detallado):
 
 ## 🔗 Enlaces
 
-- **Autor:** [cristobal.merchan98@gmail.com](mailto:cristobal.merchan98@gmail.com)
+- **Autor:** [cristobal.merchan98@hotmail.com](mailto:cristobal.merchan98@hotmail.com)
 - **Licencia:** [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)
 - **Tecnología:** [Quarto](https://quarto.org/) + SCSS
 

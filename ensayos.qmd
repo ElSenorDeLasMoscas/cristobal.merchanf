@@ -1,5 +1,139 @@
 ---
-title: "Ensayos"
+title: ""
+page-layout: full
 ---
 
-*En construcción...*
+```{r, echo=FALSE, results='asis', message=FALSE, warning=FALSE}
+library(jsonlite)
+
+candidates <- c(
+  file.path(getwd(), "data", "ensayos.json"),
+  "data/ensayos.json"
+)
+
+ci <- tryCatch(knitr::current_input(), error = function(e) NULL)
+if (!is.null(ci) && nchar(ci) > 0) {
+  candidates <- c(file.path(dirname(ci), "data", "ensayos.json"), candidates)
+}
+
+ensayos_path <- Find(file.exists, candidates)
+
+if (is.null(ensayos_path)) {
+  stop(paste("No se encontró ensayos.json. Directorio actual:", getwd()))
+}
+
+ensayos      <- read_json(ensayos_path)
+ensayos_json <- toJSON(ensayos, auto_unbox = TRUE)
+cat(sprintf('<script>const ENSAYOS_DATA = %s;</script>', ensayos_json))
+```
+
+```{=html}
+<div class="lecturas-layout">
+
+  <!-- COLUMNA IZQUIERDA -->
+  <div class="glass-intro">
+    <h2 class="intro-title">Ensayos</h2>
+    <p class="intro-text">
+      En esta sección encontrarás trabajos de todo tipo que he escrito. Académicos, ensayos y puede que literatura.
+    </p>
+    <p class="intro-text">
+      Cada entrada incluye una descripción del trabajo, su referencia y un
+      enlace para leerlo.
+    </p>
+    <div class="tag-chips-wrap" id="ensayos-tags"></div>
+  </div>
+
+  <!-- COLUMNA DERECHA -->
+  <div class="lecturas-cards" id="ensayos-cards"></div>
+
+</div>
+
+<div class="pagination-wrap" id="ensayos-pagination"></div>
+
+<script>
+function ensayoCardHtml(e) {
+  var action = e.url
+    ? '<a href="' + e.url + '" class="download-btn" target="_blank">Ver ensayo →</a>'
+    : '';
+  return '<div class="book-card script-card">' +
+    '<div class="script-ext-wrap">' +
+      '<div class="script-ext">' + e.tipo + '</div>' +
+    '</div>' +
+    '<div class="book-meta">' +
+      '<span class="entry-date">Añadido: ' + e.fecha + '</span>' +
+      '<div class="book-title">' + e.title + '</div>' +
+      '<div class="script-byline">' +
+        '<span class="book-author">' + e.author + '</span>' +
+        '<span class="script-sep">·</span>' +
+        '<span class="book-year">' + e.year + '</span>' +
+      '</div>' +
+      '<p class="book-caption">' + e.caption + '</p>' +
+      '<div class="book-cite"><span class="cite-label">Cita este trabajo:</span> ' + e.citation + '</div>' +
+      action +
+    '</div>' +
+  '</div>';
+}
+
+var ITEMS_PER_PAGE    = 6;
+var currentEnsayoPage = 1;
+var activeEnsayoTag   = null;
+
+(function() {
+  var allTags = [];
+  ENSAYOS_DATA.forEach(function(e) {
+    if (e.tags) e.tags.forEach(function(t) {
+      if (allTags.indexOf(t) === -1) allTags.push(t);
+    });
+  });
+  allTags.sort();
+  var el = document.getElementById('ensayos-tags');
+  if (!el) return;
+  el.innerHTML =
+    '<button class="tag-chip tag-chip--active" data-tag="" onclick="filterEnsayos(null)">ver todo</button>' +
+    allTags.map(function(t) {
+      return '<button class="tag-chip" data-tag="' + t + '" onclick="filterEnsayos(\'' + t + '\')">' + t + '</button>';
+    }).join('');
+})();
+
+function renderEnsayos() {
+  var data = activeEnsayoTag
+    ? ENSAYOS_DATA.filter(function(e) { return e.tags && e.tags.indexOf(activeEnsayoTag) > -1; })
+    : ENSAYOS_DATA;
+  var totalPages = Math.ceil(data.length / ITEMS_PER_PAGE) || 1;
+  if (currentEnsayoPage > totalPages) currentEnsayoPage = 1;
+  var start = (currentEnsayoPage - 1) * ITEMS_PER_PAGE;
+  document.getElementById('ensayos-cards').innerHTML =
+    data.slice(start, start + ITEMS_PER_PAGE).map(ensayoCardHtml).join('');
+  renderEnsayosPagination(totalPages);
+}
+
+function renderEnsayosPagination(totalPages) {
+  var el = document.getElementById('ensayos-pagination');
+  if (!el) return;
+  if (totalPages <= 1) { el.innerHTML = ''; return; }
+  el.innerHTML = Array.from({length: totalPages}, function(_, i) {
+    var p = i + 1;
+    return '<button class="page-btn' + (p === currentEnsayoPage ? ' page-btn--active' : '') +
+      '" onclick="goToEnsayoPage(' + p + ')">' + p + '</button>';
+  }).join('');
+}
+
+function goToEnsayoPage(p) {
+  currentEnsayoPage = p;
+  renderEnsayos();
+  var el = document.getElementById('ensayos-cards');
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function filterEnsayos(tag) {
+  activeEnsayoTag   = tag;
+  currentEnsayoPage = 1;
+  document.querySelectorAll('#ensayos-tags .tag-chip').forEach(function(btn) {
+    btn.classList.toggle('tag-chip--active', btn.dataset.tag === (tag || ''));
+  });
+  renderEnsayos();
+}
+
+renderEnsayos();
+</script>
+```

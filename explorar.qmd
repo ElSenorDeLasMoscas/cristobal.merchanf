@@ -17,12 +17,14 @@ mk_candidates <- function(filename) {
 books    <- tryCatch(read_json(Find(file.exists, mk_candidates("books.json"))),    error = function(e) list())
 scripts  <- tryCatch(read_json(Find(file.exists, mk_candidates("scripts.json"))),  error = function(e) list())
 recursos <- tryCatch(read_json(Find(file.exists, mk_candidates("recursos.json"))), error = function(e) list())
+ensayos  <- tryCatch(read_json(Find(file.exists, mk_candidates("ensayos.json"))),  error = function(e) list())
 
 cat(sprintf(
-  '<script>const BOOKS_DATA=%s;const SCRIPTS_DATA=%s;const RECURSOS_DATA=%s;</script>',
+  '<script>const BOOKS_DATA=%s;const SCRIPTS_DATA=%s;const RECURSOS_DATA=%s;const ENSAYOS_DATA=%s;</script>',
   toJSON(books,    auto_unbox = TRUE),
   toJSON(scripts,  auto_unbox = TRUE),
-  toJSON(recursos, auto_unbox = TRUE)
+  toJSON(recursos, auto_unbox = TRUE),
+  toJSON(ensayos,  auto_unbox = TRUE)
 ))
 ```
 
@@ -33,8 +35,7 @@ cat(sprintf(
   <div class="glass-intro">
     <h2 class="intro-title">Explorar</h2>
     <p class="intro-text">
-      Todos los contenidos del sitio en un solo lugar.
-      Filtra por temática para encontrar lecturas, scripts y recursos relacionados.
+      Todos los contenidos del sitio separados por temática.
     </p>
     <div class="tag-chips-wrap" id="explorar-tags"></div>
   </div>
@@ -74,7 +75,8 @@ var colorMap = {
 var ALL_DATA =
   BOOKS_DATA.map(function(b) { return Object.assign({_type: 'book'}, b); })
   .concat(SCRIPTS_DATA.map(function(s) { return Object.assign({_type: 'script'}, s); }))
-  .concat(RECURSOS_DATA.map(function(r) { return Object.assign({_type: 'recurso'}, r); }));
+  .concat(RECURSOS_DATA.map(function(r) { return Object.assign({_type: 'recurso'}, r); }))
+  .concat(ENSAYOS_DATA.map(function(e) { return Object.assign({_type: 'ensayo'}, e); }));
 
 /* ── card unificada ───────────────────────────────────────────────────── */
 function explorarCardHtml(item) {
@@ -92,6 +94,14 @@ function explorarCardHtml(item) {
         '<div class="script-ext">' + item.extension + '</div>' +
       '</div>';
     action = '<a href="' + item.download + '" class="download-btn" download>Descargar ↓</a>';
+  } else if (item._type === 'ensayo') {
+    leftCol =
+      '<div class="script-ext-wrap">' +
+        '<div class="script-ext">' + item.tipo + '</div>' +
+      '</div>';
+    action = item.url
+      ? '<a href="' + item.url + '" class="download-btn" target="_blank">Ver ensayo →</a>'
+      : '';
   } else {
     var icon  = iconMap[item.formato]  || 'fas fa-link';
     var color = colorMap[item.formato] || '#3b3458';

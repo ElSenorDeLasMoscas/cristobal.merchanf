@@ -17,8 +17,9 @@ mk_candidates <- function(filename) {
 books    <- tryCatch(read_json(Find(file.exists, mk_candidates("books.json"))),    error = function(e) list())
 scripts  <- tryCatch(read_json(Find(file.exists, mk_candidates("scripts.json"))),  error = function(e) list())
 recursos <- tryCatch(read_json(Find(file.exists, mk_candidates("recursos.json"))), error = function(e) list())
+ensayos  <- tryCatch(read_json(Find(file.exists, mk_candidates("ensayos.json"))),  error = function(e) list())
 
-all_tags <- unlist(lapply(c(books, scripts, recursos), function(x) x$tags))
+all_tags <- unlist(lapply(c(books, scripts, recursos, ensayos), function(x) x$tags))
 if (length(all_tags) > 0) {
   tag_counts <- sort(table(all_tags), decreasing = TRUE)
   cat(sprintf('<script>const TAG_COUNTS = %s;</script>',

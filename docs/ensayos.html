@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Ensayos – cristobal.merchanf</title>
+<title>ensayos – cristobal.merchanf</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -88,7 +88,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -137,33 +137,125 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content column-page" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Ensayos</h1>
+
+
+
+<script>const ENSAYOS_DATA = [{"id":"ensayo1","tags":["metodología","sociología","ciencia-abierta"],"fecha":"Julio 2026","tipo":"ensayo","title":"Heteronomía de la apertura: Financiamiento, colaboración y vías de acceso abierto en las universidades estatales chilenas (CUECH, 2015–2024)","author":"Merchan Farfán, C.","year":"2026","caption":"Entre 2015 y 2024, las dieciocho universidades estatales chilenas (CUECH) publicaron la mayor parte de su producción en acceso abierto, pero esa cifra global esconde un reordenamiento interno que impulsa la pregunta de esta investigación. Mientras la vía diamante (sin costo para autores ni lectores) se mantuvo estable y la vía verde se contrajo, la vía dorada (la que cobra un cargo por procesamiento de artículo, APC) creció de forma sostenida. La pregunta es si ese desplazamiento se asocia a dos factores estructurales, la fuente de financiamiento y el perfil de colaboración internacional, o si responde a una decisión individual de quien investiga. A partir de datos abiertos de OpenAlex (97.236 publicaciones), el análisis muestra que la producción financiada por ANID o FONDECYT se inclina más hacia la vía dorada que la no financiada por esas fuentes, y que la coautoría con el Norte Global se asocia a más vía dorada y menos diamante que la producción exclusivamente chilena o con colaboración sur-sur. La vía de apertura se comporta más como una huella de quién financia y con quién se firma, lo que sugiere que el mandato de acceso abierto y el régimen de evaluación científica no se enfrentan, sino que se acoplan por la vía dorada. El trabajo es un ejercicio de ciencia abierta (hipótesis registradas en OSF, protocolo reproducible bajo estructura IPO y materiales públicos) y se ofrece como un recorte piloto de una investigación más amplia sobre el CUECH.","citation":"Merchan Farfan, C. (2026). Heteronomía de la apertura. Financiamiento, colaboración y vías de acceso abierto en las universidades estatales chilenas (CUECH, 2015-2024). Facultad de Ciencias Sociales, Universidad de Chile.","url":"https://elsenordelasmoscas.github.io/reporte-abierto-cuech/"}];</script>
+<div class="lecturas-layout">
+
+  <!-- COLUMNA IZQUIERDA -->
+  <div class="glass-intro">
+    <h2 class="intro-title anchored">Ensayos</h2>
+    <p class="intro-text">
+      En esta sección encontrarás trabajos de todo tipo que he escrito. Académicos, ensayos y puede que literatura.
+    </p>
+    <p class="intro-text">
+      Cada entrada incluye una descripción del trabajo, su referencia y un
+      enlace para leerlo.
+    </p>
+    <div class="tag-chips-wrap" id="ensayos-tags"></div>
+  </div>
+
+  <!-- COLUMNA DERECHA -->
+  <div class="lecturas-cards" id="ensayos-cards"></div>
+
 </div>
 
+<div class="pagination-wrap" id="ensayos-pagination"></div>
 
+<script>
+function ensayoCardHtml(e) {
+  var action = e.url
+    ? '<a href="' + e.url + '" class="download-btn" target="_blank">Ver ensayo →</a>'
+    : '';
+  return '<div class="book-card script-card">' +
+    '<div class="script-ext-wrap">' +
+      '<div class="script-ext">' + e.tipo + '</div>' +
+    '</div>' +
+    '<div class="book-meta">' +
+      '<span class="entry-date">Añadido: ' + e.fecha + '</span>' +
+      '<div class="book-title">' + e.title + '</div>' +
+      '<div class="script-byline">' +
+        '<span class="book-author">' + e.author + '</span>' +
+        '<span class="script-sep">·</span>' +
+        '<span class="book-year">' + e.year + '</span>' +
+      '</div>' +
+      '<p class="book-caption">' + e.caption + '</p>' +
+      '<div class="book-cite"><span class="cite-label">Cita este trabajo:</span> ' + e.citation + '</div>' +
+      action +
+    '</div>' +
+  '</div>';
+}
 
-<div class="quarto-title-meta">
+var ITEMS_PER_PAGE    = 6;
+var currentEnsayoPage = 1;
+var activeEnsayoTag   = null;
 
-    
-  
-    
-  </div>
-  
+(function() {
+  var allTags = [];
+  ENSAYOS_DATA.forEach(function(e) {
+    if (e.tags) e.tags.forEach(function(t) {
+      if (allTags.indexOf(t) === -1) allTags.push(t);
+    });
+  });
+  allTags.sort();
+  var el = document.getElementById('ensayos-tags');
+  if (!el) return;
+  el.innerHTML =
+    '<button class="tag-chip tag-chip--active" data-tag="" onclick="filterEnsayos(null)">ver todo</button>' +
+    allTags.map(function(t) {
+      return '<button class="tag-chip" data-tag="' + t + '" onclick="filterEnsayos(\'' + t + '\')">' + t + '</button>';
+    }).join('');
+})();
 
+function renderEnsayos() {
+  var data = activeEnsayoTag
+    ? ENSAYOS_DATA.filter(function(e) { return e.tags && e.tags.indexOf(activeEnsayoTag) > -1; })
+    : ENSAYOS_DATA;
+  var totalPages = Math.ceil(data.length / ITEMS_PER_PAGE) || 1;
+  if (currentEnsayoPage > totalPages) currentEnsayoPage = 1;
+  var start = (currentEnsayoPage - 1) * ITEMS_PER_PAGE;
+  document.getElementById('ensayos-cards').innerHTML =
+    data.slice(start, start + ITEMS_PER_PAGE).map(ensayoCardHtml).join('');
+  renderEnsayosPagination(totalPages);
+}
 
-</header>
+function renderEnsayosPagination(totalPages) {
+  var el = document.getElementById('ensayos-pagination');
+  if (!el) return;
+  if (totalPages <= 1) { el.innerHTML = ''; return; }
+  el.innerHTML = Array.from({length: totalPages}, function(_, i) {
+    var p = i + 1;
+    return '<button class="page-btn' + (p === currentEnsayoPage ? ' page-btn--active' : '') +
+      '" onclick="goToEnsayoPage(' + p + ')">' + p + '</button>';
+  }).join('');
+}
 
+function goToEnsayoPage(p) {
+  currentEnsayoPage = p;
+  renderEnsayos();
+  var el = document.getElementById('ensayos-cards');
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
 
-<p><em>En construcción…</em></p>
+function filterEnsayos(tag) {
+  activeEnsayoTag   = tag;
+  currentEnsayoPage = 1;
+  document.querySelectorAll('#ensayos-tags .tag-chip').forEach(function(btn) {
+    btn.classList.toggle('tag-chip--active', btn.dataset.tag === (tag || ''));
+  });
+  renderEnsayos();
+}
+
+renderEnsayos();
+</script>
 
 
 
