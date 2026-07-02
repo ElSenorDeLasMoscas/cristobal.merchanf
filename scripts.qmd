@@ -45,12 +45,15 @@ cat(sprintf('<script>const SCRIPTS_DATA = %s;</script>', scripts_json))
       Los scripts están principalmente en R y Python, orientados al análisis
       de datos, bibliometría y visualización, tambien hay distintos proyectos que he realizado que no son códigos.
     </p>
+    <div class="tag-chips-wrap" id="scripts-tags"></div>
   </div>
 
   <!-- COLUMNA DERECHA -->
   <div class="lecturas-cards" id="scripts-cards"></div>
 
 </div>
+
+<div class="pagination-wrap" id="scripts-pagination"></div>
 
 <script>
 function scriptCardHtml(s) {
@@ -73,7 +76,65 @@ function scriptCardHtml(s) {
   '</div>';
 }
 
-document.getElementById('scripts-cards').innerHTML =
-  SCRIPTS_DATA.map(scriptCardHtml).join('');
+var ITEMS_PER_PAGE = 6;
+var currentScriptPage = 1;
+var activeScriptTag = null;
+
+(function() {
+  var allTags = [];
+  SCRIPTS_DATA.forEach(function(s) {
+    if (s.tags) s.tags.forEach(function(t) {
+      if (allTags.indexOf(t) === -1) allTags.push(t);
+    });
+  });
+  allTags.sort();
+  var el = document.getElementById('scripts-tags');
+  if (!el) return;
+  el.innerHTML =
+    '<button class="tag-chip tag-chip--active" data-tag="" onclick="filterScripts(null)">ver todo</button>' +
+    allTags.map(function(t) {
+      return '<button class="tag-chip" data-tag="' + t + '" onclick="filterScripts(\'' + t + '\')">' + t + '</button>';
+    }).join('');
+})();
+
+function renderScripts() {
+  var data = activeScriptTag
+    ? SCRIPTS_DATA.filter(function(s) { return s.tags && s.tags.indexOf(activeScriptTag) > -1; })
+    : SCRIPTS_DATA;
+  var totalPages = Math.ceil(data.length / ITEMS_PER_PAGE) || 1;
+  if (currentScriptPage > totalPages) currentScriptPage = 1;
+  var start = (currentScriptPage - 1) * ITEMS_PER_PAGE;
+  document.getElementById('scripts-cards').innerHTML = data.slice(start, start + ITEMS_PER_PAGE).map(scriptCardHtml).join('');
+  renderScriptsPagination(totalPages);
+}
+
+function renderScriptsPagination(totalPages) {
+  var el = document.getElementById('scripts-pagination');
+  if (!el) return;
+  if (totalPages <= 1) { el.innerHTML = ''; return; }
+  el.innerHTML = Array.from({length: totalPages}, function(_, i) {
+    var p = i + 1;
+    return '<button class="page-btn' + (p === currentScriptPage ? ' page-btn--active' : '') +
+      '" onclick="goToScriptPage(' + p + ')">' + p + '</button>';
+  }).join('');
+}
+
+function goToScriptPage(p) {
+  currentScriptPage = p;
+  renderScripts();
+  var el = document.getElementById('scripts-cards');
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function filterScripts(tag) {
+  activeScriptTag = tag;
+  currentScriptPage = 1;
+  document.querySelectorAll('#scripts-tags .tag-chip').forEach(function(btn) {
+    btn.classList.toggle('tag-chip--active', btn.dataset.tag === (tag || ''));
+  });
+  renderScripts();
+}
+
+renderScripts();
 </script>
 ```

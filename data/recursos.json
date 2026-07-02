@@ -1,6 +1,7 @@
 [
   {
     "id": "recurso1",
+    "tags": ["teoría-social", "filosofía"],
     "fecha": "Junio 2026",
     "formato": "youtube",
     "title": "Crisis u oportunidad? Moloch, Inteligencia artificial, y el camino equivocado del tecno-optimismo",
@@ -12,6 +13,7 @@
   },
   {
     "id": "recurso2",
+    "tags": ["sociología", "filosofía-de-la-ciencia"],
     "fecha": "Junio 2026",
     "formato": "youtube",
     "title": "SOCIOLOGÍA DE LA CIENCIA CURSO 01 - JORGE GIBERT GALASSI",
@@ -23,6 +25,7 @@
   },
   {
     "id": "recurso3",
+    "tags": ["metodología", "herramienta"],
     "fecha": "Junio 2026",
     "formato": "web",
     "title": "Aprende R",

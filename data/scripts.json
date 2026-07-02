@@ -1,6 +1,7 @@
 [
   {
     "id": "script3",
+    "tags": ["cienciometría", "bibliometría"],
     "fecha": "Junio 2026",
     "extension": "PY",
     "title": "Aplicación de análisis cienciométrico no basado en citas SOCHIFIT",
@@ -13,6 +14,7 @@
 
   {
     "id": "script2",
+    "tags": ["metodología", "bibliometría", "bibliotecas"],
     "fecha": "Junio 2026",
     "extension": "PY",
     "title": "Comparar, cruzar y homologar",
@@ -25,6 +27,7 @@
   
   {
     "id": "script1",
+    "tags": ["metodología", "bibliotecas"],
     "fecha": "Junio 2026",
     "extension": "R",
     "title": "Convertor xml a csv",

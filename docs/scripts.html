@@ -43,7 +43,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-3c69b6915fb64c6bd9790fc0f036830d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-abe1c924520d0e28bc6be2f4bb043e9d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-7b6d22227c03dae0a37474d172fef552.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -125,6 +125,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./recursos.html"> 
 <span class="menu-text">Recursos y Enlaces</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./explorar.html"> 
+<span class="menu-text">Explorar</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -143,7 +147,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<script>const SCRIPTS_DATA = [{"id":"script3","fecha":"Junio 2026","extension":"PY","title":"Aplicación de análisis cienciométrico no basado en citas SOCHIFIT","author":"Merchan Farfán, C.","year":"2025","caption":"Este data set, es el resultado de la aplicación de un análisis cienciométrico no basado en citas, en el marco de una investigación realizada con Nicolas Quiroga (Phd en agronomía), este contiene una serie de recursos y procesos que se utiliaron desde clasificar automaticamente con  IA, hasta la aplicación de un análisis de redes para identificar el comportamiento y naturaliza del campo científico de la fitopatología a traves de la SOCHIFIT. En el archivo están todos los recursos para asegurar su reproducibilidad, desde los datos, el código y la documentación de cada uno de los procesos realizados.","citation":"Merchan Farfán, C. (2026). Aplicación de análisis cienciométrico no basado en citas SOCHIFIT (2.0) [Data set]. Unidad de Bibliotecas UOH. https://doi.org/10.5281/zenodo.20671883","download":"https://doi.org/10.5281/zenodo.20671883"},{"id":"script2","fecha":"Junio 2026","extension":"PY","title":"Comparar, cruzar y homologar","author":"Merchan Farfán, C.","year":"2025","caption":"Este script es de mis favritos, es tan simple cómo tener dos archivos y comparar la columna \"título\" de cada uno. ¿El resultado? Un nuevo documento con los datos \"enfrentados\" y que agrega una columna que dice si encontró o no duplicados y en que porcentaje.","citation":"Merchan Farfán, C. (2026). Comparar, cruzar y homologar (1.0). Unidad de Bibliotecas UOH. https://doi.org/10.5281/zenodo.20671403","download":"https://doi.org/10.5281/zenodo.20671403"},{"id":"script1","fecha":"Junio 2026","extension":"R","title":"Convertor xml a csv","author":"Merchan Farfán, C.","year":"2025","caption":"Descripción breve del script. Qué hace, para qué sirve y en qué contexto lo usaste.","citation":"Merchan Farfán, C. (2026). Convertor xml a csv. Unidad de Bibliotecas UOH. https://doi.org/10.5281/zenodo.20671752","download":"https://doi.org/10.5281/zenodo.20671752"}];</script>
+<script>const SCRIPTS_DATA = [{"id":"script3","tags":["cienciometría","bibliometría"],"fecha":"Junio 2026","extension":"PY","title":"Aplicación de análisis cienciométrico no basado en citas SOCHIFIT","author":"Merchan Farfán, C.","year":"2025","caption":"Este data set, es el resultado de la aplicación de un análisis cienciométrico no basado en citas, en el marco de una investigación realizada con Nicolas Quiroga (Phd en agronomía), este contiene una serie de recursos y procesos que se utiliaron desde clasificar automaticamente con  IA, hasta la aplicación de un análisis de redes para identificar el comportamiento y naturaliza del campo científico de la fitopatología a traves de la SOCHIFIT. En el archivo están todos los recursos para asegurar su reproducibilidad, desde los datos, el código y la documentación de cada uno de los procesos realizados.","citation":"Merchan Farfán, C. (2026). Aplicación de análisis cienciométrico no basado en citas SOCHIFIT (2.0) [Data set]. Unidad de Bibliotecas UOH. https://doi.org/10.5281/zenodo.20671883","download":"https://doi.org/10.5281/zenodo.20671883"},{"id":"script2","tags":["metodología","bibliometría","bibliotecas"],"fecha":"Junio 2026","extension":"PY","title":"Comparar, cruzar y homologar","author":"Merchan Farfán, C.","year":"2025","caption":"Este script es de mis favritos, es tan simple cómo tener dos archivos y comparar la columna \"título\" de cada uno. ¿El resultado? Un nuevo documento con los datos \"enfrentados\" y que agrega una columna que dice si encontró o no duplicados y en que porcentaje.","citation":"Merchan Farfán, C. (2026). Comparar, cruzar y homologar (1.0). Unidad de Bibliotecas UOH. https://doi.org/10.5281/zenodo.20671403","download":"https://doi.org/10.5281/zenodo.20671403"},{"id":"script1","tags":["metodología","bibliotecas"],"fecha":"Junio 2026","extension":"R","title":"Convertor xml a csv","author":"Merchan Farfán, C.","year":"2025","caption":"Descripción breve del script. Qué hace, para qué sirve y en qué contexto lo usaste.","citation":"Merchan Farfán, C. (2026). Convertor xml a csv. Unidad de Bibliotecas UOH. https://doi.org/10.5281/zenodo.20671752","download":"https://doi.org/10.5281/zenodo.20671752"}];</script>
 <div class="lecturas-layout">
 
   <!-- COLUMNA IZQUIERDA -->
@@ -161,12 +165,15 @@ ul.task-list li input[type="checkbox"] {
       Los scripts están principalmente en R y Python, orientados al análisis
       de datos, bibliometría y visualización, tambien hay distintos proyectos que he realizado que no son códigos.
     </p>
+    <div class="tag-chips-wrap" id="scripts-tags"></div>
   </div>
 
   <!-- COLUMNA DERECHA -->
   <div class="lecturas-cards" id="scripts-cards"></div>
 
 </div>
+
+<div class="pagination-wrap" id="scripts-pagination"></div>
 
 <script>
 function scriptCardHtml(s) {
@@ -189,8 +196,66 @@ function scriptCardHtml(s) {
   '</div>';
 }
 
-document.getElementById('scripts-cards').innerHTML =
-  SCRIPTS_DATA.map(scriptCardHtml).join('');
+var ITEMS_PER_PAGE = 6;
+var currentScriptPage = 1;
+var activeScriptTag = null;
+
+(function() {
+  var allTags = [];
+  SCRIPTS_DATA.forEach(function(s) {
+    if (s.tags) s.tags.forEach(function(t) {
+      if (allTags.indexOf(t) === -1) allTags.push(t);
+    });
+  });
+  allTags.sort();
+  var el = document.getElementById('scripts-tags');
+  if (!el) return;
+  el.innerHTML =
+    '<button class="tag-chip tag-chip--active" data-tag="" onclick="filterScripts(null)">ver todo</button>' +
+    allTags.map(function(t) {
+      return '<button class="tag-chip" data-tag="' + t + '" onclick="filterScripts(\'' + t + '\')">' + t + '</button>';
+    }).join('');
+})();
+
+function renderScripts() {
+  var data = activeScriptTag
+    ? SCRIPTS_DATA.filter(function(s) { return s.tags && s.tags.indexOf(activeScriptTag) > -1; })
+    : SCRIPTS_DATA;
+  var totalPages = Math.ceil(data.length / ITEMS_PER_PAGE) || 1;
+  if (currentScriptPage > totalPages) currentScriptPage = 1;
+  var start = (currentScriptPage - 1) * ITEMS_PER_PAGE;
+  document.getElementById('scripts-cards').innerHTML = data.slice(start, start + ITEMS_PER_PAGE).map(scriptCardHtml).join('');
+  renderScriptsPagination(totalPages);
+}
+
+function renderScriptsPagination(totalPages) {
+  var el = document.getElementById('scripts-pagination');
+  if (!el) return;
+  if (totalPages <= 1) { el.innerHTML = ''; return; }
+  el.innerHTML = Array.from({length: totalPages}, function(_, i) {
+    var p = i + 1;
+    return '<button class="page-btn' + (p === currentScriptPage ? ' page-btn--active' : '') +
+      '" onclick="goToScriptPage(' + p + ')">' + p + '</button>';
+  }).join('');
+}
+
+function goToScriptPage(p) {
+  currentScriptPage = p;
+  renderScripts();
+  var el = document.getElementById('scripts-cards');
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function filterScripts(tag) {
+  activeScriptTag = tag;
+  currentScriptPage = 1;
+  document.querySelectorAll('#scripts-tags .tag-chip').forEach(function(btn) {
+    btn.classList.toggle('tag-chip--active', btn.dataset.tag === (tag || ''));
+  });
+  renderScripts();
+}
+
+renderScripts();
 </script>
 
 

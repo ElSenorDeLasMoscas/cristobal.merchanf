@@ -50,12 +50,15 @@ cat(sprintf('<script>const BOOKS_DATA = %s;</script>', books_json))
       Las lecturas van desde literatura, metodología y bibliotecología hasta sociología
       crítica, ciencia abierta y teoría social contemporánea.
     </p>
+    <div class="tag-chips-wrap" id="lecturas-tags"></div>
   </div>
 
   <!-- COLUMNA DERECHA -->
   <div class="lecturas-cards" id="lecturas-cards"></div>
 
 </div>
+
+<div class="pagination-wrap" id="lecturas-pagination"></div>
 
 <div id="modal-container"></div>
 
@@ -104,10 +107,69 @@ function modalHtml(b) {
   '</div>';
 }
 
-document.getElementById('lecturas-cards').innerHTML =
-  BOOKS_DATA.map(cardHtml).join('');
 document.getElementById('modal-container').innerHTML =
   BOOKS_DATA.map(modalHtml).join('');
+
+var ITEMS_PER_PAGE = 6;
+var currentBookPage = 1;
+var activeBookTag = null;
+
+(function() {
+  var allTags = [];
+  BOOKS_DATA.forEach(function(b) {
+    if (b.tags) b.tags.forEach(function(t) {
+      if (allTags.indexOf(t) === -1) allTags.push(t);
+    });
+  });
+  allTags.sort();
+  var el = document.getElementById('lecturas-tags');
+  if (!el) return;
+  el.innerHTML =
+    '<button class="tag-chip tag-chip--active" data-tag="" onclick="filterBooks(null)">ver todo</button>' +
+    allTags.map(function(t) {
+      return '<button class="tag-chip" data-tag="' + t + '" onclick="filterBooks(\'' + t + '\')">' + t + '</button>';
+    }).join('');
+})();
+
+function renderBooks() {
+  var data = activeBookTag
+    ? BOOKS_DATA.filter(function(b) { return b.tags && b.tags.indexOf(activeBookTag) > -1; })
+    : BOOKS_DATA;
+  var totalPages = Math.ceil(data.length / ITEMS_PER_PAGE) || 1;
+  if (currentBookPage > totalPages) currentBookPage = 1;
+  var start = (currentBookPage - 1) * ITEMS_PER_PAGE;
+  document.getElementById('lecturas-cards').innerHTML = data.slice(start, start + ITEMS_PER_PAGE).map(cardHtml).join('');
+  renderBooksPagination(totalPages);
+}
+
+function renderBooksPagination(totalPages) {
+  var el = document.getElementById('lecturas-pagination');
+  if (!el) return;
+  if (totalPages <= 1) { el.innerHTML = ''; return; }
+  el.innerHTML = Array.from({length: totalPages}, function(_, i) {
+    var p = i + 1;
+    return '<button class="page-btn' + (p === currentBookPage ? ' page-btn--active' : '') +
+      '" onclick="goToBookPage(' + p + ')">' + p + '</button>';
+  }).join('');
+}
+
+function goToBookPage(p) {
+  currentBookPage = p;
+  renderBooks();
+  var el = document.getElementById('lecturas-cards');
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function filterBooks(tag) {
+  activeBookTag = tag;
+  currentBookPage = 1;
+  document.querySelectorAll('#lecturas-tags .tag-chip').forEach(function(btn) {
+    btn.classList.toggle('tag-chip--active', btn.dataset.tag === (tag || ''));
+  });
+  renderBooks();
+}
+
+renderBooks();
 
 function openModal(id) {
   document.getElementById('modal-' + id).style.display = 'flex';

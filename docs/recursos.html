@@ -43,7 +43,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-3c69b6915fb64c6bd9790fc0f036830d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-abe1c924520d0e28bc6be2f4bb043e9d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-7b6d22227c03dae0a37474d172fef552.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -125,6 +125,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link active" href="./recursos.html" aria-current="page"> 
 <span class="menu-text">Recursos y Enlaces</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./explorar.html"> 
+<span class="menu-text">Explorar</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -143,7 +147,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<script>const RECURSOS_DATA = [{"id":"recurso1","fecha":"Junio 2026","formato":"youtube","title":"Crisis u oportunidad? Moloch, Inteligencia artificial, y el camino equivocado del tecno-optimismo","author":"McNabb, Darin","year":"2025","caption":"Este es tal vez uno de mis videos favoritos de YouTube. Darin McNabb hace un análisis muy interesante, presenta a Moloch como metáfora de los fracasos sistémicos de coordinación: nadie quiere el resultado catastrófico, pero la estructura de incentivos del sistema, lo produce de todas maneras. Esto, lleva a McNabb a desarrollar una estupenda conclusión del capitalismo y su naturaleza a través del análisis de la tecnología y la Inteligencia Artificial.","citation":"McNabb, D. (2025). <em>Crisis u oportunidad? Moloch, Inteligencia artificial, y el camino equivocado del tecno-optimismo<\/em>. YouTube.","url":"https://youtu.be/5EpALKferxE"},{"id":"recurso2","fecha":"Junio 2026","formato":"youtube","title":"SOCIOLOGÍA DE LA CIENCIA CURSO 01 - JORGE GIBERT GALASSI","author":"VideosRoadLyonProd","year":"2012","caption":"Esta es la primera de cuatro sesiones grabadas en el Instituto de Sistemas Complejos de la Universidad de Valparaíso, en las que el profesor Jorge Gibert Galassi, hace una introducción a la sociología de la ciencia. En esta primera sesión, se abordan temas como la historia de la sociología de la ciencia, sus principales enfoques teóricos y metodológicos, y su relación con otras disciplinas como la filosofía de la ciencia y la historia de la ciencia. Esta es una serie de video creo que obligatoria por la facilidad en la que el profesor explica conceptos y desarrolla esta introducción a la sociología de la ciencia","citation":"VideosRoadLyonProd. (2012). <em>SOCIOLOGÍA DE LA CIENCIA CURSO 01 - JORGE GIBERT GALASSI<\/em>. YouTube.","url":"https://youtu.be/iAevwLpVq10"},{"id":"recurso3","fecha":"Junio 2026","formato":"web","title":"Aprende R","author":"Bastian Olea","year":"2024","caption":"Esta página, desarrollada por el investigador Bastian Olea, es un recurso completo para aprender R, desde su instalación, conceptos básicos hasta cómo hacer una serie de análisis estadísticos. Un recurso escencial.","citation":"Olea, B. (2024). <em>Aprende R<\/em>. GitHub.","url":"https://bastianolea.github.io/aprende_r/"}];</script>
+<script>const RECURSOS_DATA = [{"id":"recurso1","tags":["teoría-social","filosofía"],"fecha":"Junio 2026","formato":"youtube","title":"Crisis u oportunidad? Moloch, Inteligencia artificial, y el camino equivocado del tecno-optimismo","author":"McNabb, Darin","year":"2025","caption":"Este es tal vez uno de mis videos favoritos de YouTube. Darin McNabb hace un análisis muy interesante, presenta a Moloch como metáfora de los fracasos sistémicos de coordinación: nadie quiere el resultado catastrófico, pero la estructura de incentivos del sistema, lo produce de todas maneras. Esto, lleva a McNabb a desarrollar una estupenda conclusión del capitalismo y su naturaleza a través del análisis de la tecnología y la Inteligencia Artificial.","citation":"McNabb, D. (2025). <em>Crisis u oportunidad? Moloch, Inteligencia artificial, y el camino equivocado del tecno-optimismo<\/em>. YouTube.","url":"https://youtu.be/5EpALKferxE"},{"id":"recurso2","tags":["sociología","filosofía-de-la-ciencia"],"fecha":"Junio 2026","formato":"youtube","title":"SOCIOLOGÍA DE LA CIENCIA CURSO 01 - JORGE GIBERT GALASSI","author":"VideosRoadLyonProd","year":"2012","caption":"Esta es la primera de cuatro sesiones grabadas en el Instituto de Sistemas Complejos de la Universidad de Valparaíso, en las que el profesor Jorge Gibert Galassi, hace una introducción a la sociología de la ciencia. En esta primera sesión, se abordan temas como la historia de la sociología de la ciencia, sus principales enfoques teóricos y metodológicos, y su relación con otras disciplinas como la filosofía de la ciencia y la historia de la ciencia. Esta es una serie de video creo que obligatoria por la facilidad en la que el profesor explica conceptos y desarrolla esta introducción a la sociología de la ciencia","citation":"VideosRoadLyonProd. (2012). <em>SOCIOLOGÍA DE LA CIENCIA CURSO 01 - JORGE GIBERT GALASSI<\/em>. YouTube.","url":"https://youtu.be/iAevwLpVq10"},{"id":"recurso3","tags":["metodología","herramienta"],"fecha":"Junio 2026","formato":"web","title":"Aprende R","author":"Bastian Olea","year":"2024","caption":"Esta página, desarrollada por el investigador Bastian Olea, es un recurso completo para aprender R, desde su instalación, conceptos básicos hasta cómo hacer una serie de análisis estadísticos. Un recurso escencial.","citation":"Olea, B. (2024). <em>Aprende R<\/em>. GitHub.","url":"https://bastianolea.github.io/aprende_r/"}];</script>
 <div class="lecturas-layout">
 
   <!-- COLUMNA IZQUIERDA -->
@@ -156,12 +160,15 @@ ul.task-list li input[type="checkbox"] {
     <p class="intro-text">
       Cada entrada incluye una descripción breve y un enlace directo para acceder al recurso.
     </p>
+    <div class="tag-chips-wrap" id="recursos-tags"></div>
   </div>
 
   <!-- COLUMNA DERECHA -->
   <div class="lecturas-cards" id="recursos-cards"></div>
 
 </div>
+
+<div class="pagination-wrap" id="recursos-pagination"></div>
 
 <script>
 /* Mapa de formato → icono Font Awesome */
@@ -225,8 +232,66 @@ function resourceCardHtml(r) {
   '</div>';
 }
 
-document.getElementById('recursos-cards').innerHTML =
-  RECURSOS_DATA.map(resourceCardHtml).join('');
+var ITEMS_PER_PAGE = 6;
+var currentRecursoPage = 1;
+var activeRecursoTag = null;
+
+(function() {
+  var allTags = [];
+  RECURSOS_DATA.forEach(function(r) {
+    if (r.tags) r.tags.forEach(function(t) {
+      if (allTags.indexOf(t) === -1) allTags.push(t);
+    });
+  });
+  allTags.sort();
+  var el = document.getElementById('recursos-tags');
+  if (!el) return;
+  el.innerHTML =
+    '<button class="tag-chip tag-chip--active" data-tag="" onclick="filterRecursos(null)">ver todo</button>' +
+    allTags.map(function(t) {
+      return '<button class="tag-chip" data-tag="' + t + '" onclick="filterRecursos(\'' + t + '\')">' + t + '</button>';
+    }).join('');
+})();
+
+function renderRecursos() {
+  var data = activeRecursoTag
+    ? RECURSOS_DATA.filter(function(r) { return r.tags && r.tags.indexOf(activeRecursoTag) > -1; })
+    : RECURSOS_DATA;
+  var totalPages = Math.ceil(data.length / ITEMS_PER_PAGE) || 1;
+  if (currentRecursoPage > totalPages) currentRecursoPage = 1;
+  var start = (currentRecursoPage - 1) * ITEMS_PER_PAGE;
+  document.getElementById('recursos-cards').innerHTML = data.slice(start, start + ITEMS_PER_PAGE).map(resourceCardHtml).join('');
+  renderRecursosPagination(totalPages);
+}
+
+function renderRecursosPagination(totalPages) {
+  var el = document.getElementById('recursos-pagination');
+  if (!el) return;
+  if (totalPages <= 1) { el.innerHTML = ''; return; }
+  el.innerHTML = Array.from({length: totalPages}, function(_, i) {
+    var p = i + 1;
+    return '<button class="page-btn' + (p === currentRecursoPage ? ' page-btn--active' : '') +
+      '" onclick="goToRecursoPage(' + p + ')">' + p + '</button>';
+  }).join('');
+}
+
+function goToRecursoPage(p) {
+  currentRecursoPage = p;
+  renderRecursos();
+  var el = document.getElementById('recursos-cards');
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function filterRecursos(tag) {
+  activeRecursoTag = tag;
+  currentRecursoPage = 1;
+  document.querySelectorAll('#recursos-tags .tag-chip').forEach(function(btn) {
+    btn.classList.toggle('tag-chip--active', btn.dataset.tag === (tag || ''));
+  });
+  renderRecursos();
+}
+
+renderRecursos();
 </script>
 
 

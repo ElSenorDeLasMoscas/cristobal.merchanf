@@ -125,6 +125,7 @@ body {
   font-family: $token-font-mono;
   font-weight: 400;
   letter-spacing: 0.01em;
+  overflow-x: hidden;   /* evita scroll horizontal en móvil */
 }
 
 /* Selección por defecto: sobre el fondo primario, resaltado crema. */
@@ -570,7 +571,9 @@ a { text-decoration: none; }
   flex: 1;
   min-width: 0;
   vertical-align: top;
-  padding-right: 2.2rem;      /* deja aire para el #NN de la esquina */
+  padding-right: 2.2rem;
+  overflow-wrap: break-word;   /* URLs largas (DOIs, etc.) no dilatan el card */
+  word-break: break-word;
 }
 
 .book-author {
@@ -814,24 +817,136 @@ a { text-decoration: none; }
   display: block;
 }
 
-/* --- 3.12 Responsive --------------------------------------------------- */
+/* --- 3.12 Chips de filtro por tag ------------------------------------- */
+.tag-chips-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: $token-space * 0.8;
+  padding-top: $token-space * 0.6;
+  border-top: $token-hairline solid rgba($token-blue, 0.2);
+}
+
+.tag-chip {
+  font-family: $token-font-mono;
+  font-size: $token-fs-label;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: $token-tracking-mono;
+  color: $token-blue;
+  background: transparent;
+  border: $token-hairline solid rgba($token-blue, 0.35);
+  border-radius: $token-radius;
+  padding: 0.18rem 0.5rem;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  line-height: 1.5;
+}
+.tag-chip:hover {
+  background: rgba($token-blue, 0.08);
+  border-color: $token-blue;
+}
+.tag-chip--active {
+  background: $token-blue;
+  color: $token-paper;
+  border-color: $token-blue;
+}
+.tag-chip--active:hover { opacity: 0.85; }
+
+/* Links estilizados como chip (Home tag-cloud) */
+a.tag-chip { text-decoration: none; display: inline-flex; align-items: center; }
+
+/* Contador de entradas dentro de chips */
+.chip-count { opacity: 0.6; font-size: 0.9em; margin-left: 0.15em; }
+
+/* Tag-cloud en Home: fondo azul → chips invertidos */
+.home-tagcloud-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $token-space * 0.5 $token-space $token-space * 2;
+}
+.home-tagcloud-section .section-label { max-width: 1180px; width: 100%; text-align: center; }
+.home-tagcloud-section .tag-chips-wrap {
+  max-width: 1180px;
+  justify-content: center;
+  border-top: none;
+  padding-top: $token-space * 0.3;
+  margin-top: $token-space * 0.3;
+}
+.home-tagcloud-section .tag-chip {
+  color: $token-paper;
+  border-color: rgba($token-paper, 0.35);
+}
+.home-tagcloud-section .tag-chip:hover {
+  background: rgba($token-paper, 0.1);
+  border-color: $token-paper;
+  color: $token-paper;
+}
+
+/* --- 3.13 Paginación --------------------------------------------------- */
+.pagination-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $token-space * 0.5;
+  margin-top: $token-space;
+  padding-top: $token-space * 0.6;
+  border-top: $token-hairline solid rgba($token-blue, 0.2);
+}
+.pagination-wrap:empty { display: none; }
+
+.page-btn {
+  font-family: $token-font-mono;
+  font-size: $token-fs-label;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: $token-tracking-mono;
+  color: $token-blue;
+  background: transparent;
+  border: $token-hairline solid rgba($token-blue, 0.35);
+  border-radius: $token-radius;
+  padding: 0.18rem 0.7rem;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  line-height: 1.5;
+}
+.page-btn:hover {
+  background: rgba($token-blue, 0.08);
+  border-color: $token-blue;
+}
+.page-btn--active {
+  background: $token-blue;
+  color: $token-paper;
+  border-color: $token-blue;
+}
+.page-btn--active:hover { opacity: 0.85; }
+
+/* --- 3.14 Responsive --------------------------------------------------- */
 @media (max-width: 768px) {
   .lecturas-layout { grid-template-columns: 1fr; padding: 0 1rem; }
-  .glass-intro { position: static; }
+  .glass-intro {
+    position: static;
+    max-width: 100%;
+    overflow-wrap: break-word;   /* evita que el texto mono desborde el panel */
+  }
+  .intro-text { letter-spacing: 0.01em; }  /* reduce tracking en móvil */
   .modal-header { flex-direction: column; align-items: center; text-align: center; }
 }
 
 /* Teléfono: la ficha pasa a UNA columna (portada arriba, texto a todo el ancho)
    para que la reseña deje de partirse en 2–3 palabras por línea. El mono largo
-   afloja el tracking y gana tamaño/interlineado para leerse cómodo. */
+   afloja el tracking y gana tamaño/interlineado para leerse cómodo.
+   Los badges cuadrados (scripts, recursos) se normalizan para que el aspecto
+   visual sea consistente con las fichas de lecturas. */
 @media (max-width: 600px) {
   .book-card {
     flex-direction: column;
     gap: $token-space * 0.9;
     padding: ($token-space * 1.1) ($token-space * 0.85);
   }
-  .book-meta { padding-right: 0; }                 /* ya no compite con el #NN lateral */
-  .book-card::after {                              /* número de bloque más recogido */
+  .book-meta { padding-right: 0; }
+  .book-card::after {
     top: $token-space * 0.5;
     right: $token-space * 0.5;
   }
@@ -845,6 +960,25 @@ a { text-decoration: none; }
     line-height: $token-leading-body;
   }
   .book-caption { opacity: 1; }
+
+  /* badges cuadrados (scripts y recursos): centrar y reducir para paridad visual
+     con el .book-img de lecturas al colapsar a columna */
+  /* .script-ext-wrap envuelve tanto .script-ext como .resource-badge en ambas páginas */
+  .script-ext-wrap {
+    align-self: center;
+    margin-bottom: $token-space * 0.2;
+  }
+  .script-ext {
+    width: 72px;
+    height: 72px;
+    font-size: 1.15rem;
+  }
+  .resource-badge {
+    width: 72px !important;
+    height: 72px !important;
+    font-size: 1.5rem;
+    border-width: 4px;
+  }
 }
 
 @media (max-width: 540px) {

@@ -3,6 +3,31 @@ title: ""
 page-layout: full
 ---
 
+```{r, echo=FALSE, results='asis', message=FALSE, warning=FALSE}
+library(jsonlite)
+
+mk_candidates <- function(filename) {
+  base <- c(file.path(getwd(), "data", filename), file.path("data", filename))
+  ci   <- tryCatch(knitr::current_input(), error = function(e) NULL)
+  if (!is.null(ci) && nchar(ci) > 0)
+    base <- c(file.path(dirname(ci), "data", filename), base)
+  base
+}
+
+books    <- tryCatch(read_json(Find(file.exists, mk_candidates("books.json"))),    error = function(e) list())
+scripts  <- tryCatch(read_json(Find(file.exists, mk_candidates("scripts.json"))),  error = function(e) list())
+recursos <- tryCatch(read_json(Find(file.exists, mk_candidates("recursos.json"))), error = function(e) list())
+
+all_tags <- unlist(lapply(c(books, scripts, recursos), function(x) x$tags))
+if (length(all_tags) > 0) {
+  tag_counts <- sort(table(all_tags), decreasing = TRUE)
+  cat(sprintf('<script>const TAG_COUNTS = %s;</script>',
+              toJSON(as.list(tag_counts), auto_unbox = TRUE)))
+} else {
+  cat('<script>const TAG_COUNTS = {};</script>')
+}
+```
+
 <div class="hero-wrapper">
 <div class="hero-glass hero-split">
 
@@ -72,3 +97,21 @@ metodología y ciencia abierta; mis lecturas recomendadas, ensayos y los scripts
 
 </div>
 </div>
+
+<div class="home-tagcloud-section">
+  <p class="section-label">Explorar por tema</p>
+  <div class="tag-chips-wrap" id="home-tagcloud"></div>
+</div>
+
+<script>
+(function() {
+  if (typeof TAG_COUNTS === 'undefined') return;
+  var tags = Object.keys(TAG_COUNTS).sort();
+  var el = document.getElementById('home-tagcloud');
+  if (!el || tags.length === 0) return;
+  el.innerHTML = tags.map(function(t) {
+    return '<a href="explorar.html#' + encodeURIComponent(t) + '" class="tag-chip">' +
+      t + ' <span class="chip-count">(' + TAG_COUNTS[t] + ')</span></a>';
+  }).join('');
+})();
+</script>

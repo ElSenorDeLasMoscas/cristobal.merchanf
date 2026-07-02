@@ -23,6 +23,8 @@ website:
         href: scripts.qmd
       - text: "Recursos y Enlaces"
         href: recursos.qmd
+      - text: "Explorar"
+        href: explorar.qmd
 
   page-footer:
     left: |

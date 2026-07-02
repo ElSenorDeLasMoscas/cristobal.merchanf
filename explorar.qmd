@@ -1,0 +1,193 @@
+---
+title: ""
+page-layout: full
+---
+
+```{r, echo=FALSE, results='asis', message=FALSE, warning=FALSE}
+library(jsonlite)
+
+mk_candidates <- function(filename) {
+  base <- c(file.path(getwd(), "data", filename), file.path("data", filename))
+  ci   <- tryCatch(knitr::current_input(), error = function(e) NULL)
+  if (!is.null(ci) && nchar(ci) > 0)
+    base <- c(file.path(dirname(ci), "data", filename), base)
+  base
+}
+
+books    <- tryCatch(read_json(Find(file.exists, mk_candidates("books.json"))),    error = function(e) list())
+scripts  <- tryCatch(read_json(Find(file.exists, mk_candidates("scripts.json"))),  error = function(e) list())
+recursos <- tryCatch(read_json(Find(file.exists, mk_candidates("recursos.json"))), error = function(e) list())
+
+cat(sprintf(
+  '<script>const BOOKS_DATA=%s;const SCRIPTS_DATA=%s;const RECURSOS_DATA=%s;</script>',
+  toJSON(books,    auto_unbox = TRUE),
+  toJSON(scripts,  auto_unbox = TRUE),
+  toJSON(recursos, auto_unbox = TRUE)
+))
+```
+
+```{=html}
+<div class="lecturas-layout">
+
+  <!-- COLUMNA IZQUIERDA -->
+  <div class="glass-intro">
+    <h2 class="intro-title">Explorar</h2>
+    <p class="intro-text">
+      Todos los contenidos del sitio en un solo lugar.
+      Filtra por temática para encontrar lecturas, scripts y recursos relacionados.
+    </p>
+    <div class="tag-chips-wrap" id="explorar-tags"></div>
+  </div>
+
+  <!-- COLUMNA DERECHA -->
+  <div class="lecturas-cards" id="explorar-cards"></div>
+
+</div>
+
+<div class="pagination-wrap" id="explorar-pagination"></div>
+
+<script>
+/* ── helpers ──────────────────────────────────────────────────────────── */
+function stars(n) {
+  return '★'.repeat(n) + '☆'.repeat(5 - n);
+}
+
+var iconMap = {
+  'instagram': 'fab fa-instagram', 'youtube':    'fab fa-youtube',
+  'linkedin':  'fab fa-linkedin',  'twitter':    'fab fa-x-twitter',
+  'github':    'fab fa-github',    'tiktok':     'fab fa-tiktok',
+  'spotify':   'fab fa-spotify',   'periodico':  'fas fa-newspaper',
+  'audio':     'fas fa-headphones','podcast':    'fas fa-podcast',
+  'libro':     'fas fa-book',      'base-datos': 'fas fa-database',
+  'script':    'fas fa-code',      'video':      'fas fa-video',
+  'articulo':  'fas fa-file-alt',  'web':        'fas fa-globe',
+  'herramienta':'fas fa-wrench',   'datos':      'fas fa-table',
+  'repositorio':'fas fa-folder-open'
+};
+var colorMap = {
+  'instagram': '#c13584', 'youtube': '#ff0000', 'linkedin': '#0077b5',
+  'twitter':   '#1a1a2e', 'github':  '#24292e', 'tiktok':   '#010101',
+  'spotify':   '#1db954'
+};
+
+/* ── datos unificados ─────────────────────────────────────────────────── */
+var ALL_DATA =
+  BOOKS_DATA.map(function(b) { return Object.assign({_type: 'book'}, b); })
+  .concat(SCRIPTS_DATA.map(function(s) { return Object.assign({_type: 'script'}, s); }))
+  .concat(RECURSOS_DATA.map(function(r) { return Object.assign({_type: 'recurso'}, r); }));
+
+/* ── card unificada ───────────────────────────────────────────────────── */
+function explorarCardHtml(item) {
+  var leftCol, action;
+  if (item._type === 'book') {
+    leftCol =
+      '<div class="book-cover-side">' +
+        '<img src="' + item.cover + '" alt="Portada" class="book-img">' +
+        '<div class="book-stars">' + stars(item.stars) + '</div>' +
+      '</div>';
+    action = '<a href="lecturas.html" class="download-btn">Ver en Lecturas →</a>';
+  } else if (item._type === 'script') {
+    leftCol =
+      '<div class="script-ext-wrap">' +
+        '<div class="script-ext">' + item.extension + '</div>' +
+      '</div>';
+    action = '<a href="' + item.download + '" class="download-btn" download>Descargar ↓</a>';
+  } else {
+    var icon  = iconMap[item.formato]  || 'fas fa-link';
+    var color = colorMap[item.formato] || '#3b3458';
+    leftCol =
+      '<div class="script-ext-wrap">' +
+        '<div class="resource-badge" style="background:' + color + '">' +
+          '<i class="' + icon + '"></i>' +
+        '</div>' +
+      '</div>';
+    action = '<a href="' + item.url + '" class="download-btn" target="_blank">Acceder →</a>';
+  }
+  return '<div class="book-card' + (item._type === 'script' ? ' script-card' : '') + '">' +
+    leftCol +
+    '<div class="book-meta">' +
+      '<span class="entry-date">Añadido: ' + item.fecha + '</span>' +
+      '<div class="book-title">' + item.title + '</div>' +
+      '<div class="script-byline">' +
+        '<span class="book-author">' + item.author + '</span>' +
+        '<span class="script-sep">·</span>' +
+        '<span class="book-year">' + item.year + '</span>' +
+      '</div>' +
+      '<p class="book-caption">' + item.caption + '</p>' +
+      action +
+    '</div>' +
+  '</div>';
+}
+
+/* ── estado ───────────────────────────────────────────────────────────── */
+var ITEMS_PER_PAGE      = 6;
+var currentExplorarPage = 1;
+var activeExplorarTag   = null;
+
+/* ── chips con conteo ─────────────────────────────────────────────────── */
+(function() {
+  var tagCounts = {};
+  ALL_DATA.forEach(function(item) {
+    if (item.tags) item.tags.forEach(function(t) {
+      tagCounts[t] = (tagCounts[t] || 0) + 1;
+    });
+  });
+  var tags = Object.keys(tagCounts).sort();
+  var el = document.getElementById('explorar-tags');
+  if (!el) return;
+  el.innerHTML =
+    '<button class="tag-chip tag-chip--active" data-tag="" onclick="filterExplorar(null)">ver todo</button>' +
+    tags.map(function(t) {
+      return '<button class="tag-chip" data-tag="' + t + '" onclick="filterExplorar(\'' + t + '\')">' +
+        t + ' <span class="chip-count">(' + tagCounts[t] + ')</span></button>';
+    }).join('');
+
+  /* pre-seleccionar desde URL hash (llegando desde el Home) */
+  var hash = decodeURIComponent(window.location.hash.slice(1));
+  if (hash && tagCounts[hash]) filterExplorar(hash);
+  else renderExplorar();
+})();
+
+/* ── render ───────────────────────────────────────────────────────────── */
+function renderExplorar() {
+  var data = activeExplorarTag
+    ? ALL_DATA.filter(function(item) { return item.tags && item.tags.indexOf(activeExplorarTag) > -1; })
+    : ALL_DATA;
+  var totalPages = Math.ceil(data.length / ITEMS_PER_PAGE) || 1;
+  if (currentExplorarPage > totalPages) currentExplorarPage = 1;
+  var start = (currentExplorarPage - 1) * ITEMS_PER_PAGE;
+  document.getElementById('explorar-cards').innerHTML =
+    data.slice(start, start + ITEMS_PER_PAGE).map(explorarCardHtml).join('');
+  renderExplorarPagination(totalPages);
+}
+
+function renderExplorarPagination(totalPages) {
+  var el = document.getElementById('explorar-pagination');
+  if (!el) return;
+  if (totalPages <= 1) { el.innerHTML = ''; return; }
+  el.innerHTML = Array.from({length: totalPages}, function(_, i) {
+    var p = i + 1;
+    return '<button class="page-btn' + (p === currentExplorarPage ? ' page-btn--active' : '') +
+      '" onclick="goToExplorarPage(' + p + ')">' + p + '</button>';
+  }).join('');
+}
+
+function goToExplorarPage(p) {
+  currentExplorarPage = p;
+  renderExplorar();
+  var el = document.getElementById('explorar-cards');
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function filterExplorar(tag) {
+  activeExplorarTag   = tag;
+  currentExplorarPage = 1;
+  if (tag) history.replaceState(null, '', '#' + tag);
+  else     history.replaceState(null, '', window.location.pathname);
+  document.querySelectorAll('#explorar-tags .tag-chip').forEach(function(btn) {
+    btn.classList.toggle('tag-chip--active', btn.dataset.tag === (tag || ''));
+  });
+  renderExplorar();
+}
+</script>
+```

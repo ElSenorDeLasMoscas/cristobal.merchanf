@@ -43,7 +43,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-3c69b6915fb64c6bd9790fc0f036830d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-abe1c924520d0e28bc6be2f4bb043e9d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-7b6d22227c03dae0a37474d172fef552.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -125,6 +125,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./recursos.html"> 
 <span class="menu-text">Recursos y Enlaces</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./explorar.html"> 
+<span class="menu-text">Explorar</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -143,6 +147,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 
+<script>const TAG_COUNTS = {"sociología":5,"metodología":4,"bibliometría":3,"filosofía-de-la-ciencia":3,"teoría-social":3,"bibliotecas":2,"cienciometría":2,"filosofía":1,"herramienta":1};</script>
 <div class="hero-wrapper">
 <div class="hero-glass hero-split">
 <div class="hero-col-left">
@@ -174,6 +179,26 @@ Explorar
 <!-- /hero-col-right -->
 </div>
 </div>
+<div class="home-tagcloud-section">
+<p class="section-label">
+Explorar por tema
+</p>
+<div id="home-tagcloud" class="tag-chips-wrap">
+
+</div>
+</div>
+<script>
+(function() {
+  if (typeof TAG_COUNTS === 'undefined') return;
+  var tags = Object.keys(TAG_COUNTS).sort();
+  var el = document.getElementById('home-tagcloud');
+  if (!el || tags.length === 0) return;
+  el.innerHTML = tags.map(function(t) {
+    return '<a href="explorar.html#' + encodeURIComponent(t) + '" class="tag-chip">' +
+      t + ' <span class="chip-count">(' + TAG_COUNTS[t] + ')</span></a>';
+  }).join('');
+})();
+</script>
 
 
 
