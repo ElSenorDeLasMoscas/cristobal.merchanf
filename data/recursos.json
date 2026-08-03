@@ -1,6 +1,19 @@
 [
   {
-    "id": "recurso1",
+    "id": "recurso4",
+    "tags": ["inteligencia-artificial"],
+    "fecha": "Agosto 2026",
+    "formato": "github",
+    "title": "Inteligencia Artificial para Principiantes",
+    "author": "leestott",
+    "year": "2026",
+    "caption": "Repositorio abierto de un curso de 0 a 100 relacionado a Inteligencia Arttificial, no se basa solo en el uso de las plataformas que conocermos, sino, que en una prendizaje profundo del funcionamientop de la IA y en español, que va desde enfoque clásico de la IA, redes neuronales yaprendizaje profundo, arquitectura neuronal hasta sistemas multi-agente.",
+    "citation": "leestott. (2026). Inteligencia Artificial para Principiantes - Un Currículo. GitHub.",
+    "url": "https://github.com/microsoft/AI-For-Beginners/blob/main/translations/es/README.md"
+  },
+
+  {
+    "id": "recurso3",
     "tags": ["teoría-social", "filosofía"],
     "fecha": "Junio 2026",
     "formato": "youtube",
@@ -11,6 +24,7 @@
     "citation": "McNabb, D. (2025). <em>Crisis u oportunidad? Moloch, Inteligencia artificial, y el camino equivocado del tecno-optimismo</em>. YouTube.",
     "url": "https://youtu.be/5EpALKferxE"
   },
+
   {
     "id": "recurso2",
     "tags": ["sociología", "filosofía-de-la-ciencia"],
@@ -23,8 +37,9 @@
     "citation": "VideosRoadLyonProd. (2012). <em>SOCIOLOGÍA DE LA CIENCIA CURSO 01 - JORGE GIBERT GALASSI</em>. YouTube.",
     "url": "https://youtu.be/iAevwLpVq10"
   },
+
   {
-    "id": "recurso3",
+    "id": "recurso1",
     "tags": ["metodología", "herramienta"],
     "fecha": "Junio 2026",
     "formato": "web",
