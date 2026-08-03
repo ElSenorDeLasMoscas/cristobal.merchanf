@@ -1,4 +1,17 @@
 [
+ {
+    "id": "script4",
+    "tags": ["inteligencia-artificial"],
+    "fecha": "Agosto 2026",
+    "extension": "AI",
+    "title": "Guía de instalación y configuración de Hermes AI",
+    "author": "Merchan Farfán, C.",
+    "year": "2025",
+    "caption": "Esta es una guía paso a paso para la instalación de un agente autonomo de Inteligencia Articial \"Hermes\", la guía contiene todos los pasos para poder instalarlo y utilizarlo de forma segura y gratuita",
+    "citation": "Merchan Farfán, C. (2026). Guía de instalación y configuración de Hermes AI. Unidad de Bibliotecas UOH. https://doi.org/10.5281/zenodo.21731132",
+    "download": "https://doi.org/10.5281/zenodo.21731132"
+  },
+  
   {
     "id": "script3",
     "tags": ["cienciometría", "bibliometría"],
