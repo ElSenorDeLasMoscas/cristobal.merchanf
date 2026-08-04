@@ -4,3 +4,12 @@
 **/*.knit.md
 .DS_Store
 Thumbs.db
+
+# Documentos operativos del proyecto — NO se publican.
+# Son la bitácora y el gobierno interno: viven en disco, no en el repo del sitio.
+# Añadidos el 2026-08-04 al aplanar la carpeta contenedora.
+/CLAUDE.md
+/GUIA_GITHUB.md
+/LOG.md
+/README_PERSONALIZACION.md
+/.claude/
