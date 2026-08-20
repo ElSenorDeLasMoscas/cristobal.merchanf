@@ -16,9 +16,9 @@
    ========================================================================= */
 
 /* --- 1.1 Color: paleta de DOS colores ---------------------------------- */
-$token-blue:        #6a5acd !default;   // azul ultramar / Klein (color primario)
-$token-paper:       #efefef !default;   // blanco cálido / crema (figura sobre azul)
-$token-white:       #ffffff !default;   // blanco puro (acentos máximos)
+$token-blue:        #ffffff !default;   // azul ultramar / Klein (color primario)
+$token-paper:       #383838 !default;   // blanco cálido / crema (figura sobre azul)
+$token-white:       #1e1e1e !default;   // blanco puro (acentos máximos)
 
 /* Roles de color derivados de la paleta (no inventes colores nuevos: derívalos) */
 $token-bg:          $token-blue !default;   // fondo global de la página

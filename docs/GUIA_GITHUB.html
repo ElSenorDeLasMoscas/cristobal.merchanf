@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>scripts – cristobal.merchanf</title>
+<title>guia_github – cristobal.merchanf</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -22,6 +22,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -88,7 +123,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -118,7 +153,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Ensayos</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./scripts.html" aria-current="page"> 
+    <a class="nav-link" href="./scripts.html"> 
 <span class="menu-text">Scripts</span></a>
   </li>  
   <li class="nav-item">
@@ -137,128 +172,257 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content column-page" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
 
 
-<script>const SCRIPTS_DATA = [{"id":"script4","tags":["inteligencia-artificial"],"fecha":"Agosto 2026","extension":"AI","title":"Guía de instalación y configuración de Hermes AI","author":"Merchan Farfán, C.","year":"2025","caption":"Esta es una guía paso a paso para la instalación de un agente autonomo de Inteligencia Articial \"Hermes\", la guía contiene todos los pasos para poder instalarlo y utilizarlo de forma segura y gratuita","citation":"Merchan Farfán, C. (2026). Guía de instalación y configuración de Hermes AI. Unidad de Bibliotecas UOH. https://doi.org/10.5281/zenodo.21731132","download":"https://doi.org/10.5281/zenodo.21731132"},{"id":"script3","tags":["cienciometría","bibliometría"],"fecha":"Junio 2026","extension":"PY","title":"Aplicación de análisis cienciométrico no basado en citas SOCHIFIT","author":"Merchan Farfán, C.","year":"2025","caption":"Este data set, es el resultado de la aplicación de un análisis cienciométrico no basado en citas, en el marco de una investigación realizada con Nicolas Quiroga (Phd en agronomía), este contiene una serie de recursos y procesos que se utiliaron desde clasificar automaticamente con  IA, hasta la aplicación de un análisis de redes para identificar el comportamiento y naturaliza del campo científico de la fitopatología a traves de la SOCHIFIT. En el archivo están todos los recursos para asegurar su reproducibilidad, desde los datos, el código y la documentación de cada uno de los procesos realizados.","citation":"Merchan Farfán, C. (2026). Aplicación de análisis cienciométrico no basado en citas SOCHIFIT (2.0) [Data set]. Unidad de Bibliotecas UOH. https://doi.org/10.5281/zenodo.20671883","download":"https://doi.org/10.5281/zenodo.20671883"},{"id":"script2","tags":["metodología","bibliometría","bibliotecas"],"fecha":"Junio 2026","extension":"PY","title":"Comparar, cruzar y homologar","author":"Merchan Farfán, C.","year":"2025","caption":"Este script es de mis favritos, es tan simple cómo tener dos archivos y comparar la columna \"título\" de cada uno. ¿El resultado? Un nuevo documento con los datos \"enfrentados\" y que agrega una columna que dice si encontró o no duplicados y en que porcentaje.","citation":"Merchan Farfán, C. (2026). Comparar, cruzar y homologar (1.0). Unidad de Bibliotecas UOH. https://doi.org/10.5281/zenodo.20671403","download":"https://doi.org/10.5281/zenodo.20671403"},{"id":"script1","tags":["metodología","bibliotecas"],"fecha":"Junio 2026","extension":"R","title":"Convertor xml a csv","author":"Merchan Farfán, C.","year":"2025","caption":"Descripción breve del script. Qué hace, para qué sirve y en qué contexto lo usaste.","citation":"Merchan Farfán, C. (2026). Convertor xml a csv. Unidad de Bibliotecas UOH. https://doi.org/10.5281/zenodo.20671752","download":"https://doi.org/10.5281/zenodo.20671752"}];</script>
-<div class="lecturas-layout">
+<section id="guía-subir-y-actualizar-el-sitio-en-github-vía-vs-code" class="level1">
+<h1>Guía: Subir y actualizar el sitio en GitHub (vía VS Code)</h1>
+<blockquote class="blockquote">
+<p>Guía paso a paso para publicar el sitio Quarto <code>cristobal.merchan</code> en GitHub y mantenerlo actualizado, usando la interfaz gráfica de <strong>VS Code</strong>.</p>
+<ul>
+<li><strong>Repositorio:</strong> https://github.com/ElSenorDeLasMoscas/cristobal.merchanf</li>
+<li><strong>Carpeta del proyecto:</strong> <code>repo\www\cristobal.merchan</code></li>
+<li><strong>Sitio publicado:</strong> https://elsenordelasmoscas.github.io/cristobal.merchanf/</li>
+</ul>
+</blockquote>
+<hr>
+<section id="cómo-funciona-lee-esto-primero" class="level2">
+<h2 class="anchored" data-anchor-id="cómo-funciona-lee-esto-primero">🧭 Cómo funciona (lee esto primero)</h2>
+<p>El sitio se escribe en archivos <strong>fuente</strong> (<code>.qmd</code>, <code>theme.scss</code>, <code>data/…</code>) y Quarto los <strong>compila</strong> a HTML dentro de la carpeta <strong><code>docs/</code></strong>.</p>
+<p>GitHub Pages no sabe compilar Quarto por sí solo (y tu sitio usa <strong>R</strong>, que complica la compilación automática). Por eso usamos el método más simple y confiable:</p>
+<ol type="1">
+<li><strong>Tú compilas en tu computador</strong> con <code>quarto render</code> (o <code>Ctrl+Shift+K</code> en VS Code).</li>
+<li><strong>Subes a GitHub</strong> tanto las fuentes como la carpeta <code>docs/</code> ya compilada.</li>
+<li><strong>GitHub Pages publica directamente lo que hay en <code>docs/</code></strong>.</li>
+</ol>
+<blockquote class="blockquote">
+<p>⚠️ <strong>Regla de oro:</strong> cada vez que cambies algo del sitio, primero <strong>compila</strong> (<code>quarto render</code>) y <em>después</em> subes. Si subes sin compilar, el sitio publicado no reflejará tus cambios.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>📌 Por este método, la carpeta <code>docs/</code> <strong>SÍ</strong> debe subirse a GitHub. En el archivo <code>.gitignore</code> la línea <code>/docs/</code> debe estar <strong>comentada</strong> (con <code>#</code> delante) o no existir. Ya quedó así: <code>#/docs/</code>.</p>
+</blockquote>
+<hr>
+</section>
+<section id="parte-1-primera-carga-solo-se-hace-una-vez" class="level2">
+<h2 class="anchored" data-anchor-id="parte-1-primera-carga-solo-se-hace-una-vez">PARTE 1 — Primera carga (solo se hace una vez)</h2>
+<section id="paso-1.-abrir-el-proyecto-en-vs-code" class="level3">
+<h3 class="anchored" data-anchor-id="paso-1.-abrir-el-proyecto-en-vs-code">Paso 1. Abrir el proyecto en VS Code</h3>
+<ol type="1">
+<li>Abre <strong>VS Code</strong>.</li>
+<li><code>File</code> → <code>Open Folder…</code></li>
+<li>Selecciona la carpeta: <code>C:\Users\bernardo.rojas\OneDrive\Desktop\magister\repo\www\cristobal.merchan</code></li>
+<li>Si aparece un aviso de confianza, haz clic en <strong>“Yes, I trust the authors”</strong>.</li>
+</ol>
+</section>
+<section id="paso-2.-compilar-el-sitio-importante" class="level3">
+<h3 class="anchored" data-anchor-id="paso-2.-compilar-el-sitio-importante">Paso 2. Compilar el sitio (importante)</h3>
+<p>Antes de subir, asegúrate de tener el sitio compilado y actualizado:</p>
+<ol type="1">
+<li><p>Abre la terminal integrada: menú <code>Terminal</code> → <code>New Terminal</code> (o <code>Ctrl+Ñ</code>).</p></li>
+<li><p>Escribe y ejecuta:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>quarto render</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Espera a que termine. Debe compilar las 5 páginas sin errores y dejar todo en la carpeta <code>docs/</code>.</p></li>
+</ol>
+</section>
+<section id="paso-3.-abrir-el-panel-de-control-de-versiones-source-control" class="level3">
+<h3 class="anchored" data-anchor-id="paso-3.-abrir-el-panel-de-control-de-versiones-source-control">Paso 3. Abrir el panel de control de versiones (Source Control)</h3>
+<ol type="1">
+<li>En la barra lateral izquierda, haz clic en el icono de <strong>Source Control</strong> (parece tres círculos conectados por líneas) o presiona <code>Ctrl+Shift+G</code>.</li>
+<li>Si VS Code dice que no es un repositorio git, haz clic en <strong>“Initialize Repository”</strong>. (Si ya muestra archivos, salta este paso.)</li>
+</ol>
+</section>
+<section id="paso-4.-preparar-todos-los-archivos-stage" class="level3">
+<h3 class="anchored" data-anchor-id="paso-4.-preparar-todos-los-archivos-stage">Paso 4. Preparar todos los archivos (Stage)</h3>
+<ol type="1">
+<li><p>En el panel de Source Control verás una lista de archivos bajo <strong>“Changes”</strong>.</p></li>
+<li><p>Pasa el mouse sobre el encabezado <strong>“Changes”</strong> y haz clic en el icono <strong><code>+</code></strong> (“Stage All Changes”). Esto mueve todos los archivos a <strong>“Staged Changes”</strong>.</p>
+<blockquote class="blockquote">
+<p>La carpeta <code>docs/</code> debe aparecer en la lista. Es correcto: con este método sí se sube.</p>
+</blockquote></li>
+</ol>
+</section>
+<section id="paso-5.-escribir-el-mensaje-y-hacer-commit" class="level3">
+<h3 class="anchored" data-anchor-id="paso-5.-escribir-el-mensaje-y-hacer-commit">Paso 5. Escribir el mensaje y hacer Commit</h3>
+<ol type="1">
+<li><p>En la caja de texto de arriba (dice “Message”), escribe:</p>
+<pre><code>Primera versión del sitio</code></pre></li>
+<li><p>Haz clic en el botón <strong>“Commit”</strong> (o presiona <code>Ctrl+Enter</code>).</p></li>
+<li><p>Si VS Code te pide configurar tu identidad, ejecuta esto <strong>una vez</strong> en la terminal y repite el commit:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>git config <span class="op">--</span>global user<span class="op">.</span><span class="fu">name</span> <span class="st">"Cristóbal Merchan"</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>git config <span class="op">--</span>global user<span class="op">.</span><span class="fu">email</span> <span class="st">"cristobal.merchan98@gmail.com"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ol>
+</section>
+<section id="paso-6.-conectar-con-el-repositorio-de-github" class="level3">
+<h3 class="anchored" data-anchor-id="paso-6.-conectar-con-el-repositorio-de-github">Paso 6. Conectar con el repositorio de GitHub</h3>
+<p>En la terminal integrada de VS Code, ejecuta:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>git remote add origin https<span class="op">://</span>github<span class="op">.</span><span class="fu">com</span><span class="op">/</span>ElSenorDeLasMoscas<span class="op">/</span>cristobal<span class="op">.</span><span class="fu">merchanf</span><span class="op">.</span><span class="fu">git</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>git branch <span class="op">-</span>M main</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p>Si responde <code>error: remote origin already exists</code>, primero ejecuta <code>git remote remove origin</code> y vuelve a poner la línea <code>git remote add …</code>.</p>
+</blockquote>
+</section>
+<section id="paso-7.-subir-por-primera-vez-push" class="level3">
+<h3 class="anchored" data-anchor-id="paso-7.-subir-por-primera-vez-push">Paso 7. Subir por primera vez (Push)</h3>
+<p>En la terminal:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>git push <span class="op">-</span>u origin main</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>La primera vez se abrirá una ventana del navegador para <strong>iniciar sesión en GitHub</strong>. Acepta/autoriza.</li>
+<li>Cuando termine, verás algo como <code>branch 'main' set up to track 'origin/main'</code>.</li>
+</ul>
+</section>
+<section id="paso-8.-verificar-que-subió" class="level3">
+<h3 class="anchored" data-anchor-id="paso-8.-verificar-que-subió">Paso 8. Verificar que subió</h3>
+<p>Abre en el navegador: <code>https://github.com/ElSenorDeLasMoscas/cristobal.merchanf</code></p>
+<p>Deberías ver tus archivos: <code>README.md</code>, <code>theme.scss</code>, los <code>.qmd</code>, <code>data/</code> y la carpeta <code>docs/</code>.</p>
+<hr>
+</section>
+</section>
+<section id="parte-2-activar-github-pages-solo-se-hace-una-vez" class="level2">
+<h2 class="anchored" data-anchor-id="parte-2-activar-github-pages-solo-se-hace-una-vez">PARTE 2 — Activar GitHub Pages (solo se hace una vez)</h2>
+<ol type="1">
+<li>Abre: <code>https://github.com/ElSenorDeLasMoscas/cristobal.merchanf/settings/pages</code></li>
+<li>En <strong>“Build and deployment”</strong> → <strong>“Source”</strong>, elige: <strong>Deploy from a branch</strong>.</li>
+<li>En <strong>“Branch”</strong>:
+<ul>
+<li>Rama: <strong><code>main</code></strong></li>
+<li>Carpeta: <strong><code>/docs</code></strong> ← (¡importante! NO <code>/(root)</code>)</li>
+</ul></li>
+<li>Haz clic en <strong>Save</strong>.</li>
+<li>Espera 1–2 minutos. Refresca la página: arriba aparecerá el enlace del sitio: <code>https://elsenordelasmoscas.github.io/cristobal.merchanf/</code></li>
+<li>Ábrelo. Debe mostrar la página de inicio (no el README).</li>
+</ol>
+<blockquote class="blockquote">
+<p>Si ves el README en lugar del sitio, casi siempre es porque la carpeta quedó en <code>/(root)</code> en lugar de <code>/docs</code>. Vuelve al paso 3 y corrígelo.</p>
+</blockquote>
+<hr>
+</section>
+<section id="parte-3-actualizar-el-sitio-cada-vez-que-hagas-cambios" class="level2">
+<h2 class="anchored" data-anchor-id="parte-3-actualizar-el-sitio-cada-vez-que-hagas-cambios">PARTE 3 — Actualizar el sitio (cada vez que hagas cambios)</h2>
+<p>Este es el flujo que repetirás siempre. Son 4 pasos: <strong>editar → compilar → commit → push</strong>.</p>
+<section id="paso-1.-edita-lo-que-necesites" class="level3">
+<h3 class="anchored" data-anchor-id="paso-1.-edita-lo-que-necesites">Paso 1. Edita lo que necesites</h3>
+<ul>
+<li>Estética → <code>theme.scss</code></li>
+<li>Contenido de libros / scripts / recursos → archivos en <code>data/</code></li>
+<li>Páginas → los <code>.qmd</code></li>
+</ul>
+</section>
+<section id="paso-2.-compila-no-lo-olvides" class="level3">
+<h3 class="anchored" data-anchor-id="paso-2.-compila-no-lo-olvides">Paso 2. Compila (¡no lo olvides!)</h3>
+<p>En la terminal de VS Code:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>quarto render</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p>Si no compilas, el sitio publicado <strong>no</strong> mostrará tus cambios.</p>
+</blockquote>
+</section>
+<section id="paso-3.-commit-en-vs-code" class="level3">
+<h3 class="anchored" data-anchor-id="paso-3.-commit-en-vs-code">Paso 3. Commit en VS Code</h3>
+<ol type="1">
+<li>Ve al panel <strong>Source Control</strong> (<code>Ctrl+Shift+G</code>).</li>
+<li>Pasa el mouse sobre <strong>“Changes”</strong> y haz clic en <strong><code>+</code></strong> (Stage All Changes).</li>
+<li>Escribe un mensaje corto que describa el cambio, por ejemplo:
+<ul>
+<li><code>Agrego reseña de Kuhn</code></li>
+<li><code>Ajusto color del tema</code></li>
+<li><code>Nuevo script de bibliometría</code></li>
+</ul></li>
+<li>Haz clic en <strong>Commit</strong>.</li>
+</ol>
+</section>
+<section id="paso-4.-push-subir" class="level3">
+<h3 class="anchored" data-anchor-id="paso-4.-push-subir">Paso 4. Push (subir)</h3>
+<p>Tienes dos formas equivalentes:</p>
+<ul>
+<li><p><strong>Opción A (botón):</strong> haz clic en <strong>“Sync Changes”</strong> (la flecha circular) en el panel de Source Control o en la barra de estado azul de abajo.</p></li>
+<li><p><strong>Opción B (terminal):</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>git push</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ul>
+<p>Espera 1–2 minutos y recarga <code>https://elsenordelasmoscas.github.io/cristobal.merchanf/</code> para ver los cambios publicados.</p>
+<blockquote class="blockquote">
+<p>💡 Truco: si el navegador muestra una versión vieja, fuerza la recarga con <code>Ctrl+F5</code> o abre el sitio en una ventana de incógnito.</p>
+</blockquote>
+<hr>
+</section>
+</section>
+<section id="resumen-rápido-para-tener-a-mano" class="level2">
+<h2 class="anchored" data-anchor-id="resumen-rápido-para-tener-a-mano">✅ Resumen rápido (para tener a mano)</h2>
+<p><strong>Para actualizar el sitio, siempre:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. (editas tus archivos)</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Compilas:</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>quarto render</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. En Source Control: Stage All (+), escribe mensaje, Commit</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Subes:</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>git push</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+<section id="problemas-frecuentes" class="level2">
+<h2 class="anchored" data-anchor-id="problemas-frecuentes">🆘 Problemas frecuentes</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Síntoma</th>
+<th>Causa probable</th>
+<th>Solución</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>El sitio publicado muestra el <strong>README</strong>, no la página</td>
+<td>Pages está en <code>/(root)</code></td>
+<td>Settings → Pages → Branch <code>main</code>, carpeta <strong><code>/docs</code></strong>, Save</td>
+</tr>
+<tr class="even">
+<td>Subí cambios pero el sitio <strong>no</strong> los muestra</td>
+<td>Olvidaste <code>quarto render</code> antes del commit</td>
+<td>Ejecuta <code>quarto render</code>, vuelve a commit + push</td>
+</tr>
+<tr class="odd">
+<td><code>remote origin already exists</code></td>
+<td>El remote ya estaba configurado</td>
+<td><code>git remote remove origin</code> y vuelve a agregarlo</td>
+</tr>
+<tr class="even">
+<td>Pide usuario/correo al hacer commit</td>
+<td>Git sin identidad configurada</td>
+<td>Ejecuta los dos <code>git config --global …</code> del Paso 5</td>
+</tr>
+<tr class="odd">
+<td>El push pide login y no avanza</td>
+<td>Falta autenticación de GitHub</td>
+<td>Sigue la ventana del navegador que abre VS Code; autoriza</td>
+</tr>
+<tr class="even">
+<td>Cambios en <code>docs/</code> no aparecen para subir</td>
+<td><code>docs/</code> está siendo ignorado</td>
+<td>Revisa <code>.gitignore</code>: la línea de <code>docs/</code> debe estar comentada (<code>#/docs/</code>)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="notas" class="level2">
+<h2 class="anchored" data-anchor-id="notas">📎 Notas</h2>
+<ul>
+<li><strong>Nunca edites a mano</strong> los archivos dentro de <code>docs/</code>: son generados por Quarto y se sobrescriben en cada <code>quarto render</code>.</li>
+<li>El archivo <code>.gitignore</code> debe mantener <code>docs/</code> <strong>sin</strong> ignorar (comentado con <code>#</code>) para que este método funcione.</li>
+<li>La guía de personalización del diseño (colores, fuentes, etc.) está en <code>cristobal.merchan/README_PERSONALIZACION.md</code>.</li>
+</ul>
 
-  <!-- COLUMNA IZQUIERDA -->
-  <div class="glass-intro">
-    <h2 class="intro-title anchored">Scripts y Proyectos</h2>
-    <p class="intro-text">
-      En esta sección encontrarás los scripts que he desarrollado o utilizado
-      en mis investigaciones y proyectos académicos.
-    </p>
-    <p class="intro-text">
-      Cada entrada incluye una descripción del script, su referencia y un
-      enlace para descargarlo directamente.
-    </p>
-    <p class="intro-text">
-      Los scripts están principalmente en R y Python, orientados al análisis
-      de datos, bibliometría y visualización, tambien hay distintos proyectos que he realizado que no son códigos.
-    </p>
-    <div class="tag-chips-wrap" id="scripts-tags"></div>
-  </div>
 
-  <!-- COLUMNA DERECHA -->
-  <div class="lecturas-cards" id="scripts-cards"></div>
-
-</div>
-
-<div class="pagination-wrap" id="scripts-pagination"></div>
-
-<script>
-function scriptCardHtml(s) {
-  return '<div class="book-card script-card">' +
-    '<div class="script-ext-wrap">' +
-      '<div class="script-ext">' + s.extension + '</div>' +
-    '</div>' +
-    '<div class="book-meta">' +
-            '<span class="entry-date">Añadido: ' + s.fecha + '</span>' +
-      '<div class="book-title">' + s.title + '</div>' +
-      '<div class="script-byline">' +
-        '<span class="book-author">' + s.author + '</span>' +
-        '<span class="script-sep">·</span>' +
-        '<span class="book-year">' + s.year + '</span>' +
-      '</div>' +
-      '<p class="book-caption">' + s.caption + '</p>' +
-      '<div class="book-cite"><span class="cite-label">Cita este texto:</span> ' + s.citation + '</div>' +
-      '<a href="' + s.download + '" class="download-btn" download>Descargar el script ↓</a>' +
-    '</div>' +
-  '</div>';
-}
-
-var ITEMS_PER_PAGE = 6;
-var currentScriptPage = 1;
-var activeScriptTag = null;
-
-(function() {
-  var allTags = [];
-  SCRIPTS_DATA.forEach(function(s) {
-    if (s.tags) s.tags.forEach(function(t) {
-      if (allTags.indexOf(t) === -1) allTags.push(t);
-    });
-  });
-  allTags.sort();
-  var el = document.getElementById('scripts-tags');
-  if (!el) return;
-  el.innerHTML =
-    '<button class="tag-chip tag-chip--active" data-tag="" onclick="filterScripts(null)">ver todo</button>' +
-    allTags.map(function(t) {
-      return '<button class="tag-chip" data-tag="' + t + '" onclick="filterScripts(\'' + t + '\')">' + t + '</button>';
-    }).join('');
-})();
-
-function renderScripts() {
-  var data = activeScriptTag
-    ? SCRIPTS_DATA.filter(function(s) { return s.tags && s.tags.indexOf(activeScriptTag) > -1; })
-    : SCRIPTS_DATA;
-  var totalPages = Math.ceil(data.length / ITEMS_PER_PAGE) || 1;
-  if (currentScriptPage > totalPages) currentScriptPage = 1;
-  var start = (currentScriptPage - 1) * ITEMS_PER_PAGE;
-  document.getElementById('scripts-cards').innerHTML = data.slice(start, start + ITEMS_PER_PAGE).map(scriptCardHtml).join('');
-  renderScriptsPagination(totalPages);
-}
-
-function renderScriptsPagination(totalPages) {
-  var el = document.getElementById('scripts-pagination');
-  if (!el) return;
-  if (totalPages <= 1) { el.innerHTML = ''; return; }
-  el.innerHTML = Array.from({length: totalPages}, function(_, i) {
-    var p = i + 1;
-    return '<button class="page-btn' + (p === currentScriptPage ? ' page-btn--active' : '') +
-      '" onclick="goToScriptPage(' + p + ')">' + p + '</button>';
-  }).join('');
-}
-
-function goToScriptPage(p) {
-  currentScriptPage = p;
-  renderScripts();
-  var el = document.getElementById('scripts-cards');
-  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-function filterScripts(tag) {
-  activeScriptTag = tag;
-  currentScriptPage = 1;
-  document.querySelectorAll('#scripts-tags .tag-chip').forEach(function(btn) {
-    btn.classList.toggle('tag-chip--active', btn.dataset.tag === (tag || ''));
-  });
-  renderScripts();
-}
-
-renderScripts();
-</script>
-
-
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
