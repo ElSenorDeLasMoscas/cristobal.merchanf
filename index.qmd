@@ -40,7 +40,7 @@ Cristóbal Merchan Farfán
 
 <p class="hero-role">
 
-Bibliotecólgo, Lic en cs. de la información y documentación
+Bibliotecólogo, Lic en cs. de la información y documentación
 
 </p>
 
@@ -49,7 +49,7 @@ Bibliotecólgo, Lic en cs. de la información y documentación
 
 <p class="hero-bio">
 
-Bienvenid\_ a mi espacio digital. Aquí encontrarás reflexiones sobre ciencias sociales, metodología y ciencia abierta; mis lecturas recomendadas, ensayos y los scripts con los que trabajo.
+Bienvenid\_ a mi espacio digital. Acá escribo sobre ciencias sociales, metodología y ciencia abierta; algunas recomendaciones de recursos varios, videos o textos, y los scripts con los que trabajo.
 
 </p>
 
@@ -63,7 +63,7 @@ Bienvenid\_ a mi espacio digital. Aquí encontrarás reflexiones sobre ciencias 
 :::: hero-col-right
 <p class="section-label">
 
-Explorar
+Explora
 
 </p>
 
@@ -80,7 +80,7 @@ Explorar
 :::: home-tagcloud-section
 <p class="section-label">
 
-Explorar por tema
+Explora por tema
 
 </p>
 

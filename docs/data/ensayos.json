@@ -1,7 +1,20 @@
 [
 
     {
-    "id": "ensayo1",
+    "id": "ensayo4",
+    "tags": ["sociología", "tesis", "bibliotecología"],
+    "fecha": "octubre 2026",
+    "tipo": "exposé",
+    "title": "Exposé de tesis: Mandato de acceso abierto y régimen de evaluación: mecanismos de las condiciones de publicación en las universidades del CRUCH, 2015-2025",
+    "author": "Merchan Farfán, C.",
+    "year": "2026",
+    "caption": "Texto desarrollado para presentar el tema de investigación de la tesis de grado en el programa de Magister en Ciencias Sociales, mención sociología de la modernización.",
+    "citation": "Merchan Farfán, C. (2026). Exposé de tesis: Mandato de acceso abierto y régimen de evaluación: mecanismos de las condiciones de publicación en las universidades del CRUCH, 2015-2025. Universidad de Chile.",
+    "url": "data/textos/expose/index.html"
+  },
+
+    {
+    "id": "ensayo3",
     "tags": ["sociología", "teoría-social", "bibliotecología"],
     "fecha": "Julio 2026",
     "tipo": "ensayo",
@@ -27,7 +40,7 @@
   },
 
     {
-    "id": "ensayo3",
+    "id": "ensayo1",
     "tags": ["filosofía-de-la-ciencia","acceso-abierto", "ciencia-abierta"],
     "fecha": "Julio 2026",
     "tipo": "ensayo",

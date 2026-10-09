@@ -184,7 +184,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="panel-de-control-del-diseño-theme.scss" class="level1">
 <h1>Panel de control del diseño — <code>theme.scss</code></h1>
-<p>Este sitio Quarto tiene su estética <strong>rediseñada por tokens</strong>. Toda decisión visual (color, tipografía, espaciado, hairlines, duotono) se controla desde un único archivo: <strong><code>theme.scss</code></strong>. El <strong>contenido</strong>, la <strong>navegación</strong> y la <strong>funcionalidad</strong> no se tocaron: viven en los <code>.qmd</code> y en <code>_quarto.yml</code>.</p>
+<p>Este sitio Quarto tiene su estética <strong>rediseñada por tokens</strong>. Toda decisión visual (color, tipografía, espaciado, hairlines, tratamiento monocromo) se controla desde un único archivo: <strong><code>theme.scss</code></strong>. El <strong>contenido</strong>, la <strong>navegación</strong> y la <strong>funcionalidad</strong> no se tocaron: viven en los <code>.qmd</code> y en <code>_quarto.yml</code>.</p>
 <blockquote class="blockquote">
 <p><strong>Idea de primeros principios:</strong> defines unos pocos <em>tokens atómicos</em> (los únicos valores “de marca”) y todo lo demás se <em>deriva</em> de ellos. Cambias un token → el cambio se propaga de forma coherente por todo el sitio. Las reglas de estilo nunca repiten un color o una fuente “a mano”: siempre consumen un token.</p>
 </blockquote>
@@ -267,25 +267,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td><code>$token-blue</code></td>
 <td><code>theme.scss</code></td>
 <td><code>1.1 Color</code></td>
-<td><strong>Color primario</strong>: fondo de la página, texto sobre crema, bordes.</td>
-<td><code>#1d24e6</code> (azul ultramar/Klein)</td>
-<td>Pon otro hex. Es <em>el</em> color de marca.</td>
+<td><strong>Negro tinta</strong>: fondo de la página, estructura y contraste.</td>
+<td><code>#111111</code></td>
+<td>Pon otro negro o gris profundo. Es <em>el</em> color de marca.</td>
 </tr>
 <tr class="even">
 <td><code>$token-paper</code></td>
 <td><code>theme.scss</code></td>
 <td><code>1.1 Color</code></td>
-<td><strong>Crema/figura</strong>: texto sobre azul, fondo de paneles invertidos.</td>
-<td><code>#f4f1e8</code></td>
-<td>Otro hex claro y cálido.</td>
+<td><strong>Gris marfil</strong>: texto principal y paneles invertidos.</td>
+<td><code>#e8e8e4</code></td>
+<td>Otro gris claro si quieres variar la temperatura.</td>
 </tr>
 <tr class="odd">
 <td><code>$token-white</code></td>
 <td><code>theme.scss</code></td>
 <td><code>1.1 Color</code></td>
-<td>Acento de máximo contraste (hover).</td>
+<td>Blanco de máximo contraste.</td>
 <td><code>#ffffff</code></td>
-<td>Otro hex.</td>
+<td>Otro blanco o gris muy claro.</td>
 </tr>
 <tr class="even">
 <td><code>$token-bg</code></td>
@@ -293,7 +293,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td><code>1.1 Color</code></td>
 <td>Fondo global. <strong>Derivado</strong> de <code>$token-blue</code>.</td>
 <td><code>= $token-blue</code></td>
-<td>Cámbialo solo si quieres un fondo distinto al primario.</td>
+<td>Cámbialo solo si quieres un fondo distinto al negro.</td>
 </tr>
 <tr class="odd">
 <td><code>$token-fg</code></td>
@@ -323,9 +323,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td><code>$token-selection-light</code></td>
 <td><code>theme.scss</code></td>
 <td><code>1.1 Color</code></td>
-<td><strong>Color del resaltado al seleccionar texto</strong> sobre fondos claros (cajas de código, paneles crema).</td>
-<td><code>rgba($token-blue, 0.28)</code></td>
-<td>Sube/baja el <code>0.28</code> (más alto = más opaco). Cambia <code>$token-blue</code> por otro color para otro tinte.</td>
+<td><strong>Color del resaltado al seleccionar texto</strong> sobre fondos claros (cajas de código, paneles grises).</td>
+<td><code>rgba($token-blue, 0.22)</code></td>
+<td>Sube/baja el <code>0.22</code> (más alto = más opaco).</td>
 </tr>
 <tr class="odd">
 <td><code>$token-font-display</code></td>
@@ -459,8 +459,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td><code>$token-duotone</code></td>
 <td><code>theme.scss</code></td>
 <td><code>1.5 Imágenes</code></td>
-<td><strong>Filtro CSS de duotono</strong> azul tipo grabado para todas las imágenes.</td>
-<td><code>grayscale(1) brightness(1.08) contrast(0.98) sepia(1) hue-rotate(198deg) saturate(2.6)</code></td>
+<td><strong>Filtro CSS monocromo</strong> para todas las imágenes.</td>
+<td><code>grayscale(1) brightness(1.04) contrast(1.08)</code></td>
 <td>Ver receta §3.4. <code>none</code> lo desactiva.</td>
 </tr>
 <tr class="even">
@@ -480,15 +480,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="recetas-frecuentes" class="level2">
 <h2 class="anchored" data-anchor-id="recetas-frecuentes">3. Recetas frecuentes</h2>
-<section id="cambiar-el-azul-el-color-de-marca" class="level3">
-<h3 class="anchored" data-anchor-id="cambiar-el-azul-el-color-de-marca">3.1 Cambiar el azul (el color de marca)</h3>
+<section id="cambiar-el-negro-el-color-de-marca" class="level3">
+<h3 class="anchored" data-anchor-id="cambiar-el-negro-el-color-de-marca">3.1 Cambiar el negro (el color de marca)</h3>
 <ol type="1">
 <li>Abre <code>theme.scss</code> → sección <code>1.1 Color</code>.</li>
-<li>Cambia <strong>solo</strong> <code>$token-blue: #1d24e6;</code> por tu hex.</li>
+<li>Cambia <strong>solo</strong> <code>$token-blue: #111111;</code> por tu negro o gris profundo.</li>
 <li><code>quarto render</code>. Fondo, bordes, paneles invertidos y botones se actualizan juntos.</li>
 </ol>
 <blockquote class="blockquote">
-<p>Para cambiar el crema, edita <code>$token-paper</code>. Para invertir TODO el sitio (crema de fondo, azul de texto) intercambia los valores de <code>$token-bg</code> y <code>$token-fg</code>.</p>
+<p>Para cambiar el gris marfil, edita <code>$token-paper</code>. Para invertir TODO el sitio intercambia los valores de <code>$token-bg</code> y <code>$token-fg</code>.</p>
 </blockquote>
 </section>
 <section id="cambiar-la-tipografía" class="level3">
@@ -510,17 +510,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="invertir-una-sección-figura-fondo">3.3 Invertir una sección (figura ↔︎ fondo)</h3>
 <ul>
 <li>Las <strong>tarjetas alternan</strong> solas: las pares se invierten vía <code>.book-card:nth-child(even)</code> (sección <code>3.8</code> de <code>theme.scss</code>). Para invertir el patrón, cambia <code>even</code> por <code>odd</code>.</li>
-<li>Para forzar un panel concreto a un estilo, los <strong>mixins</strong> ya existen en <code>theme.scss</code> (sección <code>3.0</code>): <code>@include panel-paper;</code> (crema con texto azul) o <code>@include panel-ink;</code> (azul con texto crema + hairline). Aplícalos a la clase que quieras.</li>
+<li>Para forzar un panel concreto a un estilo, los <strong>mixins</strong> ya existen en <code>theme.scss</code> (sección <code>3.0</code>): <code>@include panel-paper;</code> (gris claro con texto negro) o <code>@include panel-ink;</code> (negro con texto marfil + hairline). Aplícalos a la clase que quieras.</li>
 </ul>
 </section>
-<section id="ajustar-el-duotono-de-las-imágenes" class="level3">
-<h3 class="anchored" data-anchor-id="ajustar-el-duotono-de-las-imágenes">3.4 Ajustar el duotono de las imágenes</h3>
+<section id="ajustar-el-tratamiento-monocromo-de-las-imágenes" class="level3">
+<h3 class="anchored" data-anchor-id="ajustar-el-tratamiento-monocromo-de-las-imágenes">3.4 Ajustar el tratamiento monocromo de las imágenes</h3>
 <ul>
 <li>En <code>theme.scss</code> → <code>1.5 Imágenes</code>, edita <code>$token-duotone</code>:
 <ul>
-<li><strong>Más intenso / más azul:</strong> sube <code>saturate(5)</code> (p.&nbsp;ej. <code>saturate(8)</code>).</li>
-<li><strong>Tono del azul:</strong> ajusta <code>hue-rotate(200deg)</code>.</li>
 <li><strong>Más contraste tipo grabado:</strong> sube <code>contrast(1.1)</code>.</li>
+<li><strong>Más luz:</strong> sube <code>brightness(1.08)</code>.</li>
+<li><strong>Color original:</strong> pon <code>none</code> para desactivar el tratamiento.</li>
 <li><strong>Desactivar:</strong> pon <code>$token-duotone: none;</code>.</li>
 </ul></li>
 <li>Se aplica a portadas (<code>.book-img</code>, <code>.modal-cover</code>). <strong>No reemplaza</strong> ninguna imagen: solo las trata por CSS.</li>
@@ -535,7 +535,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="b-color-al-seleccionar-texto" class="level3">
 <h3 class="anchored" data-anchor-id="b-color-al-seleccionar-texto">3.5b Color al seleccionar texto</h3>
 <ul>
-<li>Sobre el <strong>fondo primario</strong> (morado), el resaltado es crema: regla <code>::selection</code> en <code>theme.scss</code> → sección <code>3.1</code>.</li>
+<li>Sobre el <strong>fondo primario</strong> (negro), el resaltado es gris claro: regla <code>::selection</code> en <code>theme.scss</code> → sección <code>3.1</code>.</li>
 <li>Sobre <strong>fondos claros</strong> (cajas de código, paneles crema), el resaltado es el primario translúcido (<code>$token-selection-light</code>). Para hacerlo más/menos visible cambia el <code>0.28</code> del token; para abarcar más superficies, añade su selector a la lista de reglas <code>…::selection</code> de la sección <code>3.1</code>.</li>
 </ul>
 </section>
@@ -578,10 +578,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><strong>Proyecto:</strong> Quarto <em>website</em> con <code>format: html</code>, output en <code>docs/</code>. Confirmado.</li>
 <li><strong>Tema previo:</strong> sí existía (<code>quartz</code> + <code>custom.scss</code>). Se creó <code>theme.scss</code> nuevo y se enlazó; <code>custom.scss</code> se conserva como respaldo (no se carga).</li>
-<li><strong>Valores de la referencia:</strong> el azul (<code>#1d24e6</code>) y las fuentes (Bodoni Moda / Space Mono) son <strong>aproximaciones</strong> de la referencia, expuestas como tokens para que las ajustes.</li>
+<li><strong>Valores de la referencia:</strong> el negro (<code>#111111</code>) y las fuentes (Bodoni Moda / Space Mono) son <strong>aproximaciones</strong> de la referencia, expuestas como tokens para que las ajustes.</li>
 <li><strong>Fuentes:</strong> servidas como <strong>equivalentes libres</strong> vía Google Fonts, con fallbacks del sistema.</li>
 <li><strong>Cuerpo en mono:</strong> la referencia usa mayúsculas en mono para nav/etiquetas. Se aplicó mayúsculas a navegación, etiquetas, botones y títulos, pero <strong>no</strong> a los párrafos largos (reseñas) para no perjudicar la legibilidad. Es una decisión de diseño reversible (quita <code>text-transform: uppercase</code> donde no lo quieras).</li>
-<li><strong>Imágenes de referencia:</strong> sí estaban adjuntas en la sesión; el diseño las emula. El duotono se aplica por CSS a las imágenes de contenido existentes.</li>
+<li><strong>Imágenes de referencia:</strong> sí estaban adjuntas en la sesión; el diseño las emula. El tratamiento monocromo se aplica por CSS a las imágenes de contenido existentes.</li>
 </ul>
 
 
