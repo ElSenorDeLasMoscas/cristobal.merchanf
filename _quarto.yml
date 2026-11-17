@@ -2,6 +2,11 @@
 project:
   type: website
   output-dir: docs
+  # Solo las páginas .qmd son el sitio. Sin esta lista, Quarto renderiza
+  # también los .md operativos (GUIA_GITHUB, LOG, README_PERSONALIZACION)
+  # y los publica en docs/, aunque el .gitignore excluya sus fuentes.
+  render:
+    - "*.qmd"
   resources:
     - data/
 
