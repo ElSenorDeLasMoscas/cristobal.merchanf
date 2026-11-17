@@ -40,10 +40,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-3c69b6915fb64c6bd9790fc0f036830d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-3f38f994865444efb3324b65924b4d21.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-53502a8118736700787630e020eeada8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-327ccb2ef8c45c370052662e9dd79251.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -81,8 +81,8 @@ ul.task-list li input[type="checkbox"] {
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<!-- Fuentes del tema: serif display (Didone) + monoespaciada. Equivalentes libres. -->
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
+<!-- Fuentes del tema: texto (Instrument Sans) + títulos de lectura (Big Shoulders Display) + metadatos (Space Mono). -->
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=Big+Shoulders+Display:wght@700&amp;family=Space+Mono&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 
@@ -123,7 +123,7 @@ ul.task-list li input[type="checkbox"] {
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./recursos.html"> 
-<span class="menu-text">Recursos y Enlaces</span></a>
+<span class="menu-text">Recursos</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./explorar.html"> 
@@ -142,7 +142,11 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content column-page" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content page-columns page-full column-page" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<aside class="site-rail">
+  <a class="rail-name" href="./index.html">Cristóbal <br>Merchan <br>Farfán</a>
+  <p class="role">Bibliotecólogo · Lic. en Cs. de la Información y Documentación</p>
+</aside>
 
 
 
@@ -674,6 +678,14 @@ renderEnsayos();
 </div>
   </div>
 </footer>
+<script>
+  /* Quarto inserta el riel dentro del contenido; se lleva al inicio de la página
+     para que en móvil quede arriba del menú (en escritorio es fijo y no cambia nada). */
+  (function() {
+    var riel = document.querySelector('.site-rail');
+    if (riel) document.body.prepend(riel);
+  })();
+</script>
 <script>
   (function() {
     const opciones = ['a', 'x', 'o', '_'];

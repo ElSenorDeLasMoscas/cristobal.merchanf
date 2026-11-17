@@ -87,7 +87,7 @@ function explorarCardHtml(item) {
         '<img src="' + item.cover + '" alt="Portada" class="book-img">' +
         '<div class="book-stars">' + stars(item.stars) + '</div>' +
       '</div>';
-    action = '<a href="lecturas.html" class="download-btn">Ver en Lecturas →</a>';
+    action = '<a href="lecturas.html#' + item.id + '" class="download-btn">Leer reseña →</a>';
   } else if (item._type === 'script') {
     leftCol =
       '<div class="script-ext-wrap">' +
@@ -123,7 +123,7 @@ function explorarCardHtml(item) {
         '<span class="script-sep">·</span>' +
         '<span class="book-year">' + item.year + '</span>' +
       '</div>' +
-      '<p class="book-caption">' + item.caption + '</p>' +
+      '<p class="book-caption">' + (String(item.caption).trim() === '---' ? 'Reseña en preparación.' : item.caption) + '</p>' +
       action +
     '</div>' +
   '</div>';

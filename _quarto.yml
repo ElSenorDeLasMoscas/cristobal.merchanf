@@ -26,7 +26,7 @@ website:
         href: ensayos.qmd
       - text: "Scripts"
         href: scripts.qmd
-      - text: "Recursos y Enlaces"
+      - text: "Recursos"
         href: recursos.qmd
       - text: "Explorar"
         href: explorar.qmd
@@ -58,11 +58,26 @@ format:
         </script>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <!-- Fuentes del tema: serif display (Didone) + monoespaciada. Equivalentes libres. -->
-        <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        <!-- Fuentes del tema: texto (Instrument Sans) + títulos de lectura (Big Shoulders Display) + metadatos (Space Mono). -->
+        <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Big+Shoulders+Display:wght@700&family=Space+Mono&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    # Riel izquierdo con nombre y cargo, en todas las páginas (en móvil pasa a cabecera).
+    include-before-body:
+      text: |
+        <aside class="site-rail">
+          <a class="rail-name" href="./index.html">Cristóbal <br>Merchan <br>Farfán</a>
+          <p class="role">Bibliotecólogo · Lic. en Cs. de la Información y Documentación</p>
+        </aside>
     include-after-body:
       text: |
+        <script>
+          /* Quarto inserta el riel dentro del contenido; se lleva al inicio de la página
+             para que en móvil quede arriba del menú (en escritorio es fijo y no cambia nada). */
+          (function() {
+            var riel = document.querySelector('.site-rail');
+            if (riel) document.body.prepend(riel);
+          })();
+        </script>
         <script>
           (function() {
             const opciones = ['a', 'x', 'o', '_'];

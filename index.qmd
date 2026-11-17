@@ -19,6 +19,7 @@ scripts  <- tryCatch(read_json(Find(file.exists, mk_candidates("scripts.json")))
 recursos <- tryCatch(read_json(Find(file.exists, mk_candidates("recursos.json"))), error = function(e) list())
 ensayos  <- tryCatch(read_json(Find(file.exists, mk_candidates("ensayos.json"))),  error = function(e) list())
 
+# Temas con su conteo (nube "Por tema")
 all_tags <- unlist(lapply(c(books, scripts, recursos, ensayos), function(x) x$tags))
 if (length(all_tags) > 0) {
   tag_counts <- sort(table(all_tags), decreasing = TRUE)
@@ -27,78 +28,99 @@ if (length(all_tags) > 0) {
 } else {
   cat('<script>const TAG_COUNTS = {};</script>')
 }
+
+# Entradas recientes de todas las secciones (se ordenan por fecha en el navegador)
+pick <- function(lst, seccion, href) {
+  lapply(lst, function(x) list(s = seccion, t = x$title, f = x$fecha, h = href(x)))
+}
+recent <- c(
+  pick(books,    "Lecturas", function(x) paste0("lecturas.html#", x$id)),
+  pick(ensayos,  "Ensayos",  function(x) if (!is.null(x$url)) x$url else "ensayos.html"),
+  pick(scripts,  "Scripts",  function(x) "scripts.html"),
+  pick(recursos, "Recursos", function(x) "recursos.html")
+)
+counts <- list(lecturas = length(books), ensayos = length(ensayos),
+               scripts = length(scripts), recursos = length(recursos))
+cat(sprintf('<script>const HOME_RECENT = %s; const HOME_COUNTS = %s;</script>',
+            toJSON(recent, auto_unbox = TRUE), toJSON(counts, auto_unbox = TRUE)))
 ```
 
-::::::::: hero-wrapper
-:::::::: {.hero-glass .hero-split}
-::::: hero-col-left
-<h2 class="hero-name">
-
-Cristóbal Merchan Farfán
-
-</h2>
-
-<p class="hero-role">
-
-Bibliotecólogo, Lic en cs. de la información y documentación
-
-</p>
-
-::: hero-divider
-:::
-
-<p class="hero-bio">
-
-Bienvenid\_ a mi espacio digital. Acá escribo sobre ciencias sociales, metodología y ciencia abierta; algunas recomendaciones de recursos varios, videos o textos, y los scripts con los que trabajo.
-
-</p>
-
-::: social-row
-<a href="https://orcid.org/0000-0003-0640-0796" class="social-pill" target="_blank"> <i class="fab fa-orcid"></i> ORCID </a> <a href="https://www.linkedin.com/in/crist%C3%B3bal-merchan-farf%C3%A1n-a9b385236/" class="social-pill" target="_blank"> <i class="fab fa-linkedin"></i> LinkedIn </a> <a href="https://www.instagram.com/elsenordelasmoscas_/" class="social-pill" target="_blank"> <i class="fab fa-instagram"></i> Instagram </a> <a href="https://github.com/ElSenorDeLasMoscas/" class="social-pill" target="_blank"> <i class="fab fa-github"></i> GitHub </a>
-:::
-:::::
-
-<!-- /hero-col-left -->
-
-:::: hero-col-right
-<p class="section-label">
-
-Explora
-
-</p>
-
-::: nav-cards-grid
-<a href="lecturas.qmd" class="section-card"> [<i class="fas fa-book-open"></i>]{.s-icon} [ ]{.s-text}[Lecturas]{.s-title} [Recomendaciones y reseñas de mis últimas lecturas.]{.s-desc} </a> <a href="ensayos.qmd" class="section-card"> [<i class="fas fa-pen-to-square"></i>]{.s-icon} [ ]{.s-text}[Ensayos]{.s-title} [Trabajos análisis sobre temas académicos y sociales.]{.s-desc} </a> <a href="scripts.qmd" class="section-card"> [<i class="fas fa-code"></i>]{.s-icon} [ ]{.s-text}[Scripts y Proyectos]{.s-title} [Códigos en R y Python para análisis de datos, bibliometría, visualización y otros proyectos.]{.s-desc} </a> <a href="recursos.qmd" class="section-card"> [<i class="fas fa-folder-open"></i>]{.s-icon} [ ]{.s-text}[Recursos y enlaces]{.s-title} [Distintos recursos que son de interés.]{.s-desc} </a>
-:::
-
-::::
-
-<!-- /hero-col-right -->
-::::::::
-:::::::::
-
-:::: home-tagcloud-section
-<p class="section-label">
-
-Explora por tema
-
-</p>
-
-::: {#home-tagcloud .tag-chips-wrap}
-:::
-::::
-
 ```{=html}
+<section class="block">
+  <p class="k">Sobre mí</p>
+  <div>
+    <h2 class="statement">Escribo sobre ciencias sociales, metodología y ciencia abierta.</h2>
+    <p class="lede">Acá dejo reseñas de lo que leo, mis ensayos, los scripts con los que trabajo y recursos que me parecen útiles.</p>
+    <div class="inline-links">
+      <a href="https://orcid.org/0000-0003-0640-0796" target="_blank" rel="noopener"><i class="fab fa-orcid"></i>ORCID</a>
+      <a href="https://www.linkedin.com/in/crist%C3%B3bal-merchan-farf%C3%A1n-a9b385236/" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i>LinkedIn</a>
+      <a href="https://www.instagram.com/elsenordelasmoscas_/" target="_blank" rel="noopener"><i class="fab fa-instagram"></i>Instagram</a>
+      <a href="https://github.com/ElSenorDeLasMoscas/" target="_blank" rel="noopener"><i class="fab fa-github"></i>GitHub</a>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <p class="k">Secciones</p>
+  <div class="home-sections">
+    <a href="lecturas.html"><b>Lecturas</b><p>Recomendaciones y reseñas de mis últimas lecturas.</p><em><span data-count="lecturas"></span> entradas →</em></a>
+    <a href="ensayos.html"><b>Ensayos</b><p>Trabajos y análisis sobre temas académicos y sociales.</p><em><span data-count="ensayos"></span> entradas →</em></a>
+    <a href="scripts.html"><b>Scripts y proyectos</b><p>Código en R y Python: bibliometría, datos y visualización.</p><em><span data-count="scripts"></span> entradas →</em></a>
+    <a href="recursos.html"><b>Recursos y enlaces</b><p>Cursos, videos y materiales que me parecen útiles.</p><em><span data-count="recursos"></span> entradas →</em></a>
+  </div>
+</section>
+
+<section class="block">
+  <p class="k">Recientes<small>Todas las secciones</small></p>
+  <div class="home-recent" id="home-recent"></div>
+</section>
+
+<section class="block" style="border-bottom:0">
+  <p class="k">Por tema</p>
+  <div class="home-tags" id="home-tagcloud"></div>
+</section>
+
 <script>
 (function() {
-  if (typeof TAG_COUNTS === 'undefined') return;
-  var tags = Object.keys(TAG_COUNTS).sort();
-  var el = document.getElementById('home-tagcloud');
-  if (!el || tags.length === 0) return;
-  el.innerHTML = tags.map(function(t) {
-    return '<a href="explorar.html#' + encodeURIComponent(t) + '" class="tag-chip">' +
-      t + ' <span class="chip-count">(' + TAG_COUNTS[t] + ')</span></a>';
-  }).join('');
+  /* Conteos por sección */
+  document.querySelectorAll('[data-count]').forEach(function(el) {
+    el.textContent = (typeof HOME_COUNTS !== 'undefined' && HOME_COUNTS[el.dataset.count]) || 0;
+  });
+
+  /* Recientes: las fechas vienen como "julio 2026"; se ordenan de más nueva a más antigua */
+  var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto',
+               'septiembre','octubre','noviembre','diciembre'];
+  function clave(f) {
+    var p = String(f || '').toLowerCase().trim().split(/\s+/);
+    return (parseInt(p[1], 10) || 0) * 100 + (MESES.indexOf(p[0]) + 1);
+  }
+  function corta(f) {
+    var p = String(f || '').trim().split(/\s+/);
+    var m = (p[0] || '').slice(0, 3);
+    return m.charAt(0).toUpperCase() + m.slice(1).toLowerCase() + ' ' + (p[1] || '');
+  }
+  var rec = document.getElementById('home-recent');
+  if (rec && typeof HOME_RECENT !== 'undefined') {
+    var items = HOME_RECENT.slice().sort(function(a, b) { return clave(b.f) - clave(a.f); }).slice(0, 5);
+    rec.innerHTML = items.map(function(i) {
+      return '<a class="row-link" href="' + i.h + '">' +
+        '<span class="meta">' + corta(i.f) + '</span>' +
+        '<span class="meta">' + i.s + '</span>' +
+        '<span class="ttl">' + i.t + '</span>' +
+        '<span class="arr">→</span></a>';
+    }).join('') + '<a class="more" href="explorar.html">Ver todo →</a>';
+  }
+
+  /* Por tema: "filosofía-de-la-ciencia" se muestra como "Filosofía de la ciencia" */
+  var nube = document.getElementById('home-tagcloud');
+  if (nube && typeof TAG_COUNTS !== 'undefined') {
+    nube.innerHTML = Object.keys(TAG_COUNTS).sort().map(function(t) {
+      var nombre = t.replace(/-/g, ' ');
+      nombre = nombre.charAt(0).toUpperCase() + nombre.slice(1);
+      return '<a href="explorar.html#' + encodeURIComponent(t) + '">' + nombre +
+        ' <sup>' + TAG_COUNTS[t] + '</sup></a>';
+    }).join('');
+  }
 })();
 </script>
 ```

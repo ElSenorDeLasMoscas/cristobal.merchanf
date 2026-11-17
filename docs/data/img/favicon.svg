@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Favicon del sitio: mosca "C3 compacta", gris de marca (#383838) sobre blanco.
+       Fuente editable; favicon.png se genera a partir de este archivo.
+       La mosca se escala x1.47 para llenar ~85% del lienzo: a 16 px (pestaña)
+       el dibujo original quedaba demasiado chico para leerse. -->
+  <rect width="32" height="32" rx="6" fill="#ffffff"/>
+  <g transform="translate(16 16.4) scale(1.47) translate(-16 -17.25)" fill="#383838" stroke="#383838">
+    <ellipse cx="12.3" cy="18.6" rx="3.3" ry="7.2" transform="rotate(26 12.3 18.6)" fill="none" stroke-width="1.9"/>
+    <ellipse cx="19.7" cy="18.6" rx="3.3" ry="7.2" transform="rotate(-26 19.7 18.6)" fill="none" stroke-width="1.9"/>
+    <ellipse cx="16" cy="20.8" rx="3.5" ry="5.6"/>
+    <circle cx="16" cy="13.6" r="2.9"/>
+    <circle cx="14.4" cy="10" r="1.9"/>
+    <circle cx="17.6" cy="10" r="1.9"/>
+  </g>
+</svg>
