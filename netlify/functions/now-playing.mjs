@@ -52,25 +52,37 @@ function json(body, status, cache) {
   });
 }
 
-export default async () => {
+export default async (req) => {
+  // ?diag=1 agrega qué respondió Spotify sobre la reproducción (sin claves ni
+  // tokens) y desactiva la caché. Sirve para entender por qué no aparece
+  // "Escuchando ahora".
+  const diagnostico = req ? new URL(req.url).searchParams.has("diag") : false;
+  const diag = {};
+  const responder = (body) => json(diagnostico ? { ...body, diag } : body, 200, !diagnostico);
+
   try {
     const headers = { Authorization: "Bearer " + (await accessToken()) };
 
     const ahora = await fetch(NOW_URL, { headers });
+    diag.ahora_status = ahora.status;            // 200 = hay datos; 204 = Spotify dice que nada suena
     if (ahora.status === 200) {
       const j = await ahora.json();
+      diag.is_playing = j.is_playing;            // false = en pausa
+      diag.tipo = j.currently_playing_type;      // track, episode, ad, unknown
+      diag.tiene_item = Boolean(j.item);
       const t = j.is_playing ? resumen(j.item) : null;
-      if (t) return json({ playing: true, ...t }, 200, true);
+      if (t) return responder({ playing: true, ...t });
     }
 
     const reciente = await fetch(RECENT_URL, { headers });
+    diag.reciente_status = reciente.status;
     if (reciente.ok) {
       const item = (await reciente.json()).items?.[0];
       const t = item ? resumen(item.track) : null;
-      if (t) return json({ playing: false, ...t, playedAt: item.played_at }, 200, true);
+      if (t) return responder({ playing: false, ...t, playedAt: item.played_at });
     }
 
-    return json({ playing: false }, 200, true);
+    return responder({ playing: false });
   } catch (err) {
     console.error(err);
     return json({ error: true }, 502, false);
