@@ -43,7 +43,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-3f38f994865444efb3324b65924b4d21.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-327ccb2ef8c45c370052662e9dd79251.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-d0c141112424cf1b4350b29473c7e223.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -146,6 +146,7 @@ ul.task-list li input[type="checkbox"] {
 <aside class="site-rail">
   <a class="rail-name" href="./index.html">Cristóbal <br>Merchan <br>Farfán</a>
   <p class="role">Bibliotecólogo · Lic. en Cs. de la Información y Documentación</p>
+  <div class="now-playing" id="now-playing" hidden=""></div>
 </aside>
 
 
@@ -721,6 +722,46 @@ renderRecursos();
   (function() {
     var riel = document.querySelector('.site-rail');
     if (riel) document.body.prepend(riel);
+  })();
+</script>
+<script>
+  /* Spotify: qué estoy escuchando. Lo responde la función de Netlify
+     (netlify/functions/now-playing.mjs). Fuera de Netlify (GitHub Pages,
+     vista previa local) la función no existe y el widget sigue oculto. */
+  (function() {
+    var caja = document.getElementById('now-playing');
+    if (!caja || !window.fetch) return;
+    function el(tag, cls, texto) {
+      var n = document.createElement(tag);
+      if (cls) n.className = cls;
+      if (texto) n.textContent = texto;
+      return n;
+    }
+    function pintar(d) {
+      if (!d || !d.title) { caja.hidden = true; return; }
+      var esSpotify = /^https:\/\/open\.spotify\.com\//.test(d.url || '');
+      var link = el(esSpotify ? 'a' : 'div', 'np-link');
+      if (esSpotify) { link.href = d.url; link.target = '_blank'; link.rel = 'noopener'; }
+      if (/^https:\/\/i\.scdn\.co\//.test(d.cover || '')) {
+        var img = el('img', 'np-cover'); img.src = d.cover; img.alt = ''; link.appendChild(img);
+      }
+      var txt = el('span', 'np-text');
+      txt.appendChild(el('span', 'np-title', d.title));
+      txt.appendChild(el('span', 'np-artist', d.artist));
+      link.appendChild(txt);
+      var etiqueta = el('span', 'np-label' + (d.playing ? ' np-label--on' : ''),
+                        d.playing ? 'Escuchando ahora' : 'Lo último que escuché');
+      caja.replaceChildren(etiqueta, link);
+      caja.hidden = false;
+    }
+    function cargar() {
+      fetch('/.netlify/functions/now-playing')
+        .then(function(r) { return r.ok ? r.json() : null; })
+        .then(pintar)
+        .catch(function() { caja.hidden = true; });
+    }
+    cargar();
+    setInterval(function() { if (!document.hidden) cargar(); }, 60000);
   })();
 </script>
 <script>

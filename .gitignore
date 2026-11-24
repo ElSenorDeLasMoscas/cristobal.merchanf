@@ -13,3 +13,9 @@ Thumbs.db
 /LOG.md
 /README_PERSONALIZACION.md
 /.claude/
+
+# Credenciales de Spotify y estado local de Netlify — NUNCA al repo (es público).
+# Las claves viven solo en las variables de entorno del sitio en Netlify.
+.env
+.env.*
+/.netlify/

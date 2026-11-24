@@ -1,0 +1,10 @@
+# Configuración de Netlify.
+# El sitio se compila en local con Quarto (necesita R); Netlify solo publica
+# la carpeta docs/ tal cual viene en el repo y despliega las funciones.
+
+[build]
+  publish = "docs"
+  command = "echo 'docs/ ya viene compilado con Quarto'"
+
+[functions]
+  directory = "netlify/functions"
